@@ -1,9 +1,9 @@
 package Model_class;
 
-class Airport extends Airline{
+class Airport{
     private String name, code;
     private String city;
-    
+
 	public String getCity() {
         return city;
     }
