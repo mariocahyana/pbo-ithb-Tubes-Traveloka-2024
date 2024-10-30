@@ -1,6 +1,6 @@
 package Model_class;
 
-abstract class Airline{
+class Airline{
     private String name, code;
 	
     public String getName() {
