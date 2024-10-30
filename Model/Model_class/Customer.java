@@ -6,7 +6,7 @@ import Model_interface.FlightService;
 public class Customer extends User implements FlightService{
     private int customerID;
     private String email, phoneNum;
-    private double saldo;
+    private double balance;
     private ArrayList<Booking> bookingList;
     private ArrayList<Log> logID;
     private ArrayList<Transaksi> transaksiList;
@@ -28,11 +28,11 @@ public class Customer extends User implements FlightService{
     public void setphoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
-    public double getSaldo() {
-        return saldo;
+    public double getbalance() {
+        return balance;
     }
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
+    public void setbalance(double balance) {
+        this.balance = balance;
     }
     public ArrayList<Booking> getBookingList() {
         return bookingList;
