@@ -12,6 +12,15 @@ public class Flight {
     private String arrivalTime;
     private FlightClass flightClass;
     private double price;
+    private Airplane airplane;
+
+    public Airplane getAirplane() {
+        return airplane;
+    }
+
+    public void setAirplane(Airplane airplane) {
+        this.airplane = airplane;
+    }
 
     public String getFlightNumber() {
         return flightNumber;
