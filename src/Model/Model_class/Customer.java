@@ -7,11 +7,11 @@ public class Customer extends User implements FlightService{
     private double balance;
     public Customer() {
     }
-    public Customer(String nama, String password, String customerID, String email, String phoneNum, double balance) {
-        super(nama, password);
+    public Customer(String customerID, String name, String password, String email, String phoneNumber, double balance) {
+        super(name, password);
         this.customerID = customerID;
         this.email = email;
-        this.phoneNum = phoneNum;
+        this.phoneNum = phoneNumber;
         this.balance = balance;
     }
     public String getCustomerID() {
@@ -53,6 +53,10 @@ public class Customer extends User implements FlightService{
     @Override
     public void rescheduleTicket() {
 
+    }
+    @Override
+    public boolean isAdmin() {
+        return false;
     }
 }
 

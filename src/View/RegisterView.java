@@ -2,86 +2,64 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Controller.loginController;
-
 public class registerView extends JFrame {
-    private JTextField usernameValue, emailValue, noTelpValue;
-    private JPasswordField passwordValue;
-    private JButton loginButton, registerButton;
+    private JTextField nameField;
+    private JPasswordField passwordField;
+    private JTextField emailField;
+    private JTextField phoneNumberField;
+    private JButton registerButton;
 
     public registerView() {
-        super("Login & Register");
-
-        JPanel inputPanel = new JPanel(new GridLayout(6, 2));
-        inputPanel.add(new JLabel("Username:"));
-        usernameValue = new JTextField(10);
-        inputPanel.add(usernameValue);
-
-        inputPanel.add(new JLabel("Email:"));
-        emailValue = new JTextField(10);
-        inputPanel.add(emailValue);
-
-        inputPanel.add(new JLabel("Password:"));
-        passwordValue = new JPasswordField(10);
-        inputPanel.add(passwordValue);
-
-        inputPanel.add(new JLabel("No. Telepon:"));
-        noTelpValue = new JTextField(10);
-        inputPanel.add(noTelpValue);
-
-        loginButton = new JButton("LOGIN");
-        registerButton = new JButton("REGISTER");
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(loginButton);
-        buttonPanel.add(registerButton);
-
-        setLayout(new BorderLayout());
-        add(inputPanel, BorderLayout.CENTER);
-        add(buttonPanel, BorderLayout.SOUTH);
-
-        setSize(800, 700);
-        setLocationRelativeTo(null);
+        setTitle("Register");
+        setSize(300, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+        setLayout(new GridLayout(5, 2));
 
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            dispose();
-                new loginController(); 
-            }
-        });
+        add(new JLabel("Name:"));
+        nameField = new JTextField();
+        add(nameField);
+
+        add(new JLabel("Password:"));
+        passwordField = new JPasswordField();
+        add(passwordField);
+
+        add(new JLabel("Email:"));
+        emailField = new JTextField();
+        add(emailField);
+
+        add(new JLabel("Phone Number:"));
+        phoneNumberField = new JTextField();
+        add(phoneNumberField);
+
+        registerButton = new JButton("Register");
+        add(registerButton);
+
+        setLocationRelativeTo(null);
     }
 
-    public String getUsernameValue() {
-        return usernameValue.getText();
+    public String getName() {
+        return nameField.getText();
     }
 
     public String getPassword() {
-        return new String(passwordValue.getPassword());
-    }
-
-    public JButton getLoginButton() {
-        return loginButton;
-    }
-
-    public JButton getRegisterButton() {
-        return registerButton;
+        return new String(passwordField.getPassword());
     }
 
     public String getEmail() {
-        return emailValue.getText();
+        return emailField.getText();
     }
 
-    public String getNoTelp() {
-        return noTelpValue.getText();
+    public String getPhoneNumber() {
+        return phoneNumberField.getText();
     }
 
-    public void showMessage(String message) {
+    public void addRegisterListener(ActionListener listener) {
+        registerButton.addActionListener(listener);
+    }
+
+    public void displayMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
 }
