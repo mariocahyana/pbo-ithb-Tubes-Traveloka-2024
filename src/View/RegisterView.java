@@ -5,14 +5,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Controller.Login;
+import Controller.loginController;
 
-public class RegisterView extends JFrame {
+public class registerView extends JFrame {
     private JTextField usernameValue, emailValue, noTelpValue;
     private JPasswordField passwordValue;
     private JButton loginButton, registerButton;
 
-    public RegisterView() {
+    public registerView() {
         super("Login & Register");
 
         JPanel inputPanel = new JPanel(new GridLayout(6, 2));
@@ -52,7 +52,7 @@ public class RegisterView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             dispose();
-                new Login(); 
+                new loginController(); 
             }
         });
     }
