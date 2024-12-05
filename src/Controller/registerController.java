@@ -2,19 +2,19 @@ package Controller;
 
 import Model.Model_class.Customer;
 import Model.Model_class.User;
-import View.registerView;
-import View.loginView;
+import View.RegisterView;
+import View.LoginView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class registerController {
+public class RegisterController {
     private List<User> userList;
-    private registerView registerView;
-    private loginView loginView;
+    private RegisterView registerView;
+    private LoginView loginView;
 
-    public registerController(List<User> userList, registerView registerView, loginView loginView) {
+    public RegisterController(List<User> userList, RegisterView registerView, LoginView loginView) {
         this.userList = userList;
         this.registerView = registerView;
         this.loginView = loginView;

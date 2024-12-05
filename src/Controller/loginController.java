@@ -3,18 +3,18 @@ package Controller;
 import Model.Model_class.Admin;
 import Model.Model_class.Customer;
 import Model.Model_class.User;
-import View.loginView;
-import View.registerView;
+import View.LoginView;
+import View.RegisterView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class loginController {
+public class LoginController {
     private List<User> userList;
-    private loginView loginView;
+    private LoginView loginView;
 
-    public loginController(List<User> userList, loginView loginView) {
+    public LoginController(List<User> userList, LoginView loginView) {
         this.userList = userList;
         this.loginView = loginView;
 
@@ -87,7 +87,7 @@ public class loginController {
 
     private void handleRegister() {
         loginView.setVisible(false);
-        registerView registerView = new registerView();
+        RegisterView registerView = new RegisterView();
 
         registerView.addRegisterListener(new ActionListener() {
             @Override

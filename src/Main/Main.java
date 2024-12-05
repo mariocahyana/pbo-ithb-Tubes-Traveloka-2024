@@ -1,10 +1,10 @@
 package Main;
 
-import Controller.loginController;
+import Controller.LoginController;
 import Model.Model_class.Admin;
 import Model.Model_class.Customer;
 import Model.Model_class.User;
-import View.loginView;
+import View.LoginView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +16,9 @@ public class Main {
         userList.add(new Customer("C001", "derel", "derelYOW", "derel@gmail.com", "08123456789", 0));
         userList.add(new Customer("C002", "paul", "paulYOW", "paul@gmail.com", "08123456788", 0));
 
-        loginView loginView = new loginView();
+        LoginView loginView = new LoginView();
 
-        new loginController(userList, loginView);
+        new LoginController(userList, loginView);
 
         loginView.setVisible(true);
     }

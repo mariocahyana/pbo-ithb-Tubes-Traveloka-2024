@@ -4,14 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class loginView extends JFrame {
+public class LoginView extends JFrame {
     private JComboBox<String> roleSelector;
     private JTextField inputField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton registerButton;
 
-    public loginView() {
+    public LoginView() {
         setTitle("Login");
         setSize(350, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
