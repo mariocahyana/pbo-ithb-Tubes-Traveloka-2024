@@ -1,7 +1,8 @@
 package Model.Model_class;
 
-abstract class User {
-    private String nama, password;
+public abstract class User {
+    private String nama;
+    private String password;
 
     public User() {
     }
@@ -24,6 +25,8 @@ abstract class User {
     }
 
     public void setPassword(String password) {
-        this.password =password;
-   }
+        this.password = password;
+    }
+
+    public abstract boolean isAdmin();
 }
