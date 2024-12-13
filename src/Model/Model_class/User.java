@@ -1,15 +1,38 @@
 package Model.Model_class;
 
-public abstract class User {
+import Model.Model_enum.StatusUser;
+import Model.Model_interface.FlightService;
+
+public abstract class User implements FlightService{
+    private String userID;
     private String nama;
     private String password;
+    private String email;
+    private String noTelp;
+    private String balance;
+    private StatusUser status;
 
     public User() {
+    
     }
 
-    public User(String nama, String password) {
+    public User(String userID, String nama, String password, String email, String noTelp, String balance,
+            StatusUser status) {
+        this.userID = userID;
         this.nama = nama;
         this.password = password;
+        this.email = email;
+        this.noTelp = noTelp;
+        this.balance = balance;
+        this.status = status;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getNama() {
@@ -28,5 +51,52 @@ public abstract class User {
         this.password = password;
     }
 
-    public abstract boolean isAdmin();
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNoTelp() {
+        return noTelp;
+    }
+
+    public void setNoTelp(String noTelp) {
+        this.noTelp = noTelp;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
+    }
+
+    public StatusUser getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusUser status) {
+        this.status = status;
+    }
+    
+    @Override
+    public void searchFlights() {
+        
+    }
+    @Override
+    public void bookFlights() {
+
+    }
+    @Override
+    public void chooseSeat() {
+
+    }
+    @Override
+    public void rescheduleTicket() {
+
+    }
 }

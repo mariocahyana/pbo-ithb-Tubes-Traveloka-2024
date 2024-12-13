@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class Feedback {
     private String feedbackID, customer_review;
-    private Customer customer;
+    private User user;
     private Date date_review;
     public Feedback() {
     }
-    public Feedback(String feedbackID, String customer_review, Customer customer, Date date_review) {
+    public Feedback(String feedbackID, String customer_review, User user, Date date_review) {
         this.feedbackID = feedbackID;
         this.customer_review = customer_review;
-        this.customer = customer;
+        this.user = user;
         this.date_review = date_review;
     }
     public String getFeedbackID() {
@@ -26,11 +26,11 @@ public class Feedback {
     public void setCustomer_review(String customer_review) {
         this.customer_review = customer_review;
     }
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
     }
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
     public Date getDate_review() {
         return date_review;
@@ -38,5 +38,6 @@ public class Feedback {
     public void setDate_review(Date date_review) {
         this.date_review = date_review;
     }
+    
 	
 }
