@@ -3,7 +3,7 @@ package Model.Model_class;
 import Model.Model_enum.StatusUser;
 import Model.Model_interface.FlightService;
 
-public abstract class User implements FlightService{
+public class User implements FlightService{
     private String userID;
     private String nama;
     private String password;

@@ -1,123 +1,42 @@
-// package Controller;
+package Controller;
 
-// import Model.Model_class.Admin;
-// import Model.Model_class.Customer;
-// import Model.Model_class.User;
-// import View.LoginView;
-// import View.RegisterView;
+import Model.Model_class.User;
+import Model.Model_enum.StatusUser;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-// import java.awt.event.ActionEvent;
-// import java.awt.event.ActionListener;
-// import java.util.List;
+public class LoginController {
+    private DatabaseHandler dbHandler;
 
-// public class LoginController {
-//     private List<User> userList;
-//     private LoginView loginView;
+    public LoginController() {
+        dbHandler = new DatabaseHandler();
+        dbHandler.connect();
+    }
 
-//     public LoginController(List<User> userList, LoginView loginView) {
-//         this.userList = userList;
-//         this.loginView = loginView;
+    public User login(String email, String password) {
+        String query = "SELECT * FROM users WHERE email = ? AND password = ?";
+        try (Connection con = dbHandler.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
 
-//         loginView.addRoleSelectionListener(new ActionListener() {
-//             @Override
-//             public void actionPerformed(ActionEvent e) {
-//                 handleRoleSelection();
-//             }
-//         });
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
 
-//         loginView.addLoginListener(new ActionListener() {
-//             @Override
-//             public void actionPerformed(ActionEvent e) {
-//                 handleLogin();
-//             }
-//         });
-
-//         loginView.addRegisterListener(new ActionListener() {
-//             @Override
-//             public void actionPerformed(ActionEvent e) {
-//                 handleRegister();
-//             }
-//         });
-//     }
-
-//     private void handleRoleSelection() {
-//         String selectedRole = loginView.getSelectedRole();
-//         loginView.toggleRegisterButton("User".equals(selectedRole));
-//     }
-
-//     private void handleLogin() {
-//         String role = loginView.getSelectedRole();
-//         String input = loginView.getInput().trim();
-//         String password = loginView.getPassword().trim();
-
-//         System.out.println("Tes Valid data. User:");
-//         for (User user : userList) {
-//             if (user instanceof Customer) {
-//                 Customer customer = (Customer) user;
-//                 System.out.println(((Customer) user).getEmail());
-//                 System.out.println("pass input: " + password + " pass simpan: " + customer.getPassword());
-//                 if (customer.getEmail().equals(input) && customer.getPassword().equals(password)) {
-//                     loginView.displayMessage("Welcomeeeee User!");
-//                     return;
-//                 }
-//             }
-//         } 
-
-//         if ("Admin".equals(role)) {
-//             for (User user : userList) {
-//                 if (user instanceof Admin && user.getNama().equals(input) && user.getPassword().equals(password)) {
-//                     loginView.displayMessage("Welcome Admin!");
-//                     return;
-//                 }
-//             }
-//             loginView.displayMessage("Input data salah.");
-//         } else {
-//             for (User user : userList) {
-//                 if (user instanceof Customer) {
-//                     Customer customer = (Customer) user;
-//                     if (customer.getEmail().equals(input) && customer.getPassword().equals(password)) {
-//                         loginView.displayMessage("Welcome Userrrr!");
-//                         return;
-//                     }
-//                 }
-//             }
-//             loginView.displayMessage("Input data salah.");
-//         }
-//     }
-
-//     private void handleRegister() {
-//         loginView.setVisible(false);
-//         RegisterView registerView = new RegisterView();
-
-//         registerView.addRegisterListener(new ActionListener() {
-//             @Override
-//             public void actionPerformed(ActionEvent e) {
-//                 String name = registerView.getName();
-//                 String password = registerView.getPassword();
-//                 String email = registerView.getEmail();
-//                 String phoneNumber = registerView.getPhoneNumber();
-
-//                 String customerID = "C" + (userList.size() + 1);
-
-//                 for (User user : userList) {
-//                     if (user instanceof Customer) {
-//                         Customer customer = (Customer) user;
-//                         if (customer.getEmail().equals(email)) {
-//                             registerView.displayMessage("Email sudah terdaftar.");
-//                             return;
-//                         }
-//                     }
-//                 }
-
-//                 Customer newCustomer = new Customer(customerID, name, password, email, phoneNumber, 0.0);
-//                 userList.add(newCustomer);
-//                 registerView.displayMessage("Registrasi Berhasil!");
-
-//                 registerView.setVisible(false);
-//                 loginView.setVisible(true);
-//             }
-//         });
-
-//         registerView.setVisible(true);
-//     }
-// }
+            if (rs.next()) {
+                User user = new User();
+                user.setUserID(rs.getString("userID"));
+                user.setNama(rs.getString("name"));
+                user.setPassword(rs.getString("password"));
+                user.setEmail(rs.getString("email"));
+                user.setNoTelp(rs.getString("phone_num"));
+                user.setBalance(rs.getString("balance"));
+                user.setStatus(StatusUser.valueOf(rs.getString("role").toUpperCase()));
+                return user;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
