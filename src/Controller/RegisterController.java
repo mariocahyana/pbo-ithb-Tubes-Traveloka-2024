@@ -1,62 +1,40 @@
-// package Controller;
+package Controller;
 
-// import Model.Model_class.Customer;
-// import Model.Model_class.User;
-// import View.RegisterView;
-// import View.LoginView;
+import Model.Model_class.User;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-// import java.awt.event.ActionEvent;
-// import java.awt.event.ActionListener;
-// import java.util.List;
+public class RegisterController {
+    private DatabaseHandler dbHandler;
 
-// public class RegisterController {
-//     private List<User> userList;
-//     private RegisterView registerView;
-//     private LoginView loginView;
+    public RegisterController() {
+        dbHandler = new DatabaseHandler();
+        dbHandler.connect();
+    }
 
-//     public RegisterController(List<User> userList, RegisterView registerView, LoginView loginView) {
-//         this.userList = userList;
-//         this.registerView = registerView;
-//         this.loginView = loginView;
+    public String register(User user) {
+        String query = "INSERT INTO users (name, password, email, phone_num, balance, role) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection con = dbHandler.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
 
-//         registerView.addRegisterListener(new ActionListener() {
-//             @Override
-//             public void actionPerformed(ActionEvent e) {
-//                 handleRegister();
-//             }
-//         });
-//     }
+            ps.setString(1, user.getNama());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getNoTelp());
+            ps.setDouble(5, 0.0); // Default balance
+            ps.setString(6, user.getStatus().toString());
 
-//     private void handleRegister() {
-//         String name = registerView.getName();
-//         String password = registerView.getPassword();
-//         String email = registerView.getEmail();
-//         String phoneNumber = registerView.getPhoneNumber();
-
-//         String customerID = "C" + (userList.size() + 1);
-
-//         for (User user : userList) {
-//             if (user instanceof Customer) {
-//                 Customer customer = (Customer) user;
-//                 if (customer.getEmail().equals(email)) {
-//                     registerView.displayMessage("Email sudah terdaftar.");
-//                     return;
-//                 }
-//             }
-//         }
-
-//         Customer newCustomer = new Customer(customerID, name, password, email, phoneNumber, 0.0);
-//         userList.add(newCustomer);
-//         registerView.displayMessage("Registration berhasilll!");
-
-//         System.out.println("List user after regis:");
-//         for (User user : userList) {
-//             if (user instanceof Customer) {
-//                 System.out.println(((Customer) user).getEmail());
-//             }
-//         }
-
-//         registerView.setVisible(false);
-//         loginView.setVisible(true);
-//     }
-// }
+            ps.executeUpdate();
+            return "SUCCESS";
+        } catch (SQLException e) {
+            if (e.getMessage().contains("Duplicate entry") && e.getMessage().contains("email")) {
+                return "EMAIL_EXISTS";
+            } else if (e.getMessage().contains("Duplicate entry") && e.getMessage().contains("phone_num")) {
+                return "PHONE_EXISTS";
+            }
+            e.printStackTrace();
+            return "ERROR";
+        }
+    }
+}
