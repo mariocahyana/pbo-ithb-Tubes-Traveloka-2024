@@ -72,19 +72,16 @@ public class LoginView {
                     case ADMIN:
                     JOptionPane.showMessageDialog(frame, "Login successful! Welcome, Admin " + user.getNama(), "Success", JOptionPane.INFORMATION_MESSAGE);
                     frame.dispose();
-                    new AdminMenu(); // Menu khusus admin
+                    new AdminMenu();
                     break;
                 // case CUSTOMER:
                 //     JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + user.getNama(), "Success", JOptionPane.INFORMATION_MESSAGE);
                 //     frame.dispose();
-                //     new CustomerMenu(); // Menu khusus customer
+                //     new CustomerMenu();
                 //     break;
                 // default:
                 //     JOptionPane.showMessageDialog(frame, "Role not recognized.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + user.getNama(), "Success", JOptionPane.INFORMATION_MESSAGE);
-                frame.dispose();
-                new MainMenu();
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.", "Error", JOptionPane.ERROR_MESSAGE);
             }
