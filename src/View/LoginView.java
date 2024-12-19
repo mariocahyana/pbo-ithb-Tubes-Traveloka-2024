@@ -68,6 +68,20 @@ public class LoginView {
 
             User user = loginController.login(email, password);
             if (user != null) {
+                switch (user.getStatus()) {
+                    case ADMIN:
+                    JOptionPane.showMessageDialog(frame, "Login successful! Welcome, Admin " + user.getNama(), "Success", JOptionPane.INFORMATION_MESSAGE);
+                    frame.dispose();
+                    new AdminMenu(); // Menu khusus admin
+                    break;
+                // case CUSTOMER:
+                //     JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + user.getNama(), "Success", JOptionPane.INFORMATION_MESSAGE);
+                //     frame.dispose();
+                //     new CustomerMenu(); // Menu khusus customer
+                //     break;
+                // default:
+                //     JOptionPane.showMessageDialog(frame, "Role not recognized.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + user.getNama(), "Success", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
                 new MainMenu();
