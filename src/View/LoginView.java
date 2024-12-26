@@ -70,7 +70,7 @@ public class LoginView {
             if (user != null) {
                 JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + user.getNama(), "Success", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
-                new MainMenu();
+                new UserMenu(user);
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.", "Error", JOptionPane.ERROR_MESSAGE);
             }
