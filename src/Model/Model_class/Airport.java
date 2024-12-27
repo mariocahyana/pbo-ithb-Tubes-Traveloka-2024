@@ -1,6 +1,6 @@
 package Model.Model_class;
 
-class Airport{
+public class Airport{
     private String airportID, city;
 
     public Airport() {

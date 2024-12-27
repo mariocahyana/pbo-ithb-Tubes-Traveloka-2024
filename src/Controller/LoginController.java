@@ -25,7 +25,7 @@ public class LoginController {
 
             if (rs.next()) {
                 User user = new User();
-                user.setUserID(rs.getString("userID"));
+                user.setUserID(rs.getInt("userID"));
                 user.setNama(rs.getString("name"));
                 user.setPassword(rs.getString("password"));
                 user.setEmail(rs.getString("email"));

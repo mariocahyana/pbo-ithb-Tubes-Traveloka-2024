@@ -4,7 +4,7 @@ import Model.Model_enum.StatusUser;
 import Model.Model_interface.FlightService;
 
 public class User implements FlightService{
-    private String userID;
+    private int userID;
     private String nama;
     private String password;
     private String email;
@@ -16,7 +16,7 @@ public class User implements FlightService{
     
     }
 
-    public User(String userID, String nama, String password, String email, String noTelp, String balance,
+    public User(int userID, String nama, String password, String email, String noTelp, String balance,
             StatusUser status) {
         this.userID = userID;
         this.nama = nama;
@@ -27,11 +27,11 @@ public class User implements FlightService{
         this.status = status;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 

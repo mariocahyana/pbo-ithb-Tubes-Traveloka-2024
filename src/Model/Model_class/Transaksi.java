@@ -4,10 +4,10 @@ import Model.Model_enum.StatusPembayaran;
 import Model.Model_enum.Usia;
 import Model.Model_enum.ActiveTicket;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Transaksi {
-    private String transaksiID;
+    private int transaksiID;
 	private StatusPembayaran status;
     private ActiveTicket ticket;
     private int price;
@@ -16,14 +16,18 @@ public class Transaksi {
     private Flight flight;
     private int nik;
     private Usia age;
-    private Date date_transaksi;
+    private LocalDate date_transaksi;
 
+    @Override
+    public String toString(){
+        return "[" + transaksiID + status + ticket + price + name + user + flight + nik + age + date_transaksi + "]";
+    }
     public Transaksi() {
         
     }
 
-    public Transaksi(String transaksiID, StatusPembayaran status, ActiveTicket ticket, int price, String name,
-            User user, Flight flight, int nik, Usia age, Date date_transaksi) {
+    public Transaksi(int transaksiID, StatusPembayaran status, ActiveTicket ticket, int price, String name,
+            User user, Flight flight, int nik, Usia age, LocalDate date_transaksi) {
         this.transaksiID = transaksiID;
         this.status = status;
         this.ticket = ticket;
@@ -36,11 +40,11 @@ public class Transaksi {
         this.date_transaksi = date_transaksi;
     }
 
-    public String getTransaksiID() {
+    public int getTransaksiID() {
         return transaksiID;
     }
 
-    public void setTransaksiID(String transaksiID) {
+    public void setTransaksiID(int transaksiID) {
         this.transaksiID = transaksiID;
     }
 
@@ -108,11 +112,11 @@ public class Transaksi {
         this.age = age;
     }
 
-    public Date getDate_transaksi() {
+    public LocalDate getDate_transaksi() {
         return date_transaksi;
     }
 
-    public void setDate_transaksi(Date date_transaksi) {
+    public void setDate_transaksi(LocalDate date_transaksi) {
         this.date_transaksi = date_transaksi;
     }
     

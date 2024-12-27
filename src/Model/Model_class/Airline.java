@@ -1,21 +1,22 @@
 package Model.Model_class;
 
-class Airline{
+public class Airline{
     
-    private String airlineID, name;
+    private int airlineID;
+    private String name;
     
     public Airline() {
     }
-    public Airline(String airlineID, String name) {
+    public Airline(int airlineID, String name) {
         this.airlineID = airlineID;
         this.name = name;
     }
 
-    public String getAirlineID() {
+    public int getAirlineID() {
         return airlineID;
     }
 
-    public void setAirlineID(String airlineID) {
+    public void setAirlineID(int airlineID) {
         this.airlineID = airlineID;
     }
 

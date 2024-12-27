@@ -79,8 +79,6 @@ public class LoginView {
                 //     frame.dispose();
                 //     new CustomerMenu();
                 //     break;
-                // default:
-                //     JOptionPane.showMessageDialog(frame, "Role not recognized.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.", "Error", JOptionPane.ERROR_MESSAGE);

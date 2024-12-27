@@ -100,8 +100,8 @@ public class RegisterView {
                 return;
             }
 
-            User user = new User(null, name, password, email, phone, "0", StatusUser.CUSTOMER);
-
+            User user = new User(0, name, password, email, phone, "0", StatusUser.CUSTOMER);
+            
             String result = registerController.register(user);
 
             switch (result) {
