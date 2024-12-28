@@ -2,6 +2,7 @@ package View;
 
 import Controller.LoginController;
 import Model.Model_class.User;
+import Model.Model_enum.StatusUser;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,15 +63,21 @@ public class LoginView {
             String password = new String(passwordField.getPassword()).trim();
 
             if (email.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Email and password cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Email and password cannot be empty.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             User user = loginController.login(email, password);
             if (user != null) {
-                JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + user.getNama(), "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + user.getNama(), "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
-                new MainMenu();
+                if (user.getStatus() == StatusUser.ADMIN) {
+                    new AdminMenu(user);
+                } else if (user.getStatus() == StatusUser.CUSTOMER) {
+                    new CustomerMenu(user);
+                }
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.", "Error", JOptionPane.ERROR_MESSAGE);
             }
