@@ -74,7 +74,7 @@ public class LoginView {
                         JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
                 if (user.getStatus() == StatusUser.ADMIN) {
-                    new AdminMenu(user);
+                    // new AdminMenu(user);
                 } else if (user.getStatus() == StatusUser.CUSTOMER) {
                     new CustomerMenu(user);
                 }
