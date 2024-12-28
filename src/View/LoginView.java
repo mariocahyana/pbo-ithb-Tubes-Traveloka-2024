@@ -74,11 +74,11 @@ public class LoginView {
                     frame.dispose();
                     new AdminMenu();
                     break;
-                // case CUSTOMER:
-                //     JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + user.getNama(), "Success", JOptionPane.INFORMATION_MESSAGE);
-                //     frame.dispose();
-                //     new CustomerMenu();
-                //     break;
+                case CUSTOMER:
+                    JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + user.getNama(), "Success", JOptionPane.INFORMATION_MESSAGE);
+                    frame.dispose();
+                    new CustomerMenu(user);
+                    break;
                 }
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.", "Error", JOptionPane.ERROR_MESSAGE);
