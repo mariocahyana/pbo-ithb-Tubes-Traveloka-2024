@@ -2,16 +2,17 @@ package View;
 
 import javax.swing.*;
 
-import Controller.AirlineController;
+import Controller.AirplaneController;
 
 import java.awt.*;
 import java.awt.event.*;
 
 import Model.Model_class.Airline;
+import Model.Model_class.Airplane;
 
-public class InputAirlineData {
+public class InputAirplaneData {
     private JFrame frame;
-    private AirlineController Controller;
+    private AirplaneController Controller;
 
     private JButton createGradientButton(String text, int xPosition, int yPosition, Color color1, Color color2) {
         JButton button = new JButton(text) {
@@ -33,14 +34,14 @@ public class InputAirlineData {
         return button;
     }
 
-    public InputAirlineData(int actionValue, Airline airlines) {
-        Controller = new AirlineController();
-        showInputAirlineData(actionValue, airlines);
+    public InputAirplaneData(int actionValue, Airplane airplanes) {
+        Controller = new AirplaneController();
+        showInputAirplaneData(actionValue, airplanes);
     }
 
-    public void showInputAirlineData(int actionValue, Airline airlines) {
-        frame = new JFrame("INPUT AIRLINE DATA");
-        frame.setSize(400, 150);
+    public void showInputAirplaneData(int actionValue, Airplane airplanes) {
+        frame = new JFrame("INPUT AIRPLANE DATA");
+        frame.setSize(380, 250);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -59,27 +60,52 @@ public class InputAirlineData {
         gradientPanel.setLayout(null);
 
         JLabel airlineLabel = new JLabel("Airline name:");
-        airlineLabel.setBounds(50, 10, 100, 25);
+        airlineLabel.setBounds(30, 10, 100, 25);
         airlineLabel.setForeground(Color.WHITE);
         airlineLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
         gradientPanel.add(airlineLabel);
 
         JTextField airlineField = new JTextField();
-        airlineField.setBounds(150, 10, 200, 25);
+        airlineField.setBounds(150, 10, 180, 25);
         gradientPanel.add(airlineField);
 
-        JButton update = createGradientButton("UPDATE", 30, 50, new Color(51, 204, 255), new Color(0, 153, 204));
+        JLabel airplaneLabel = new JLabel("Airplane name:");
+        airplaneLabel.setBounds(30, 50, 120, 25);
+        airplaneLabel.setForeground(Color.WHITE);
+        airplaneLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        gradientPanel.add(airplaneLabel);
+
+        JTextField airplaneField = new JTextField();
+        airplaneField.setBounds(150, 50, 180, 25);
+        gradientPanel.add(airplaneField);
+
+        JLabel seatLabel = new JLabel("Total Seat:");
+        seatLabel.setBounds(30, 90, 100, 25);
+        seatLabel.setForeground(Color.WHITE);
+        seatLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        gradientPanel.add(seatLabel);
+
+        JTextField seatField = new JTextField();
+        seatField.setBounds(150, 90, 180, 25);
+        gradientPanel.add(seatField);
+
+        JButton update = createGradientButton("UPDATE", 30, 140, new Color(51, 204, 255), new Color(0, 153, 204));
         update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nama = airlineField.getText();
-                if (nama.isEmpty()) {
-                    JOptionPane.showMessageDialog(frame, "Nama airline tidak boleh kosong!", "Peringatan",
-                            JOptionPane.WARNING_MESSAGE);
-                    return;
+                String airlineName = airlineField.getText().trim();
+                String airplaneName = airplaneField.getText().trim();
+                String seatText = seatField.getText().trim();
+                if (airlineName.isEmpty() || airplaneName.isEmpty() || seatText.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "All of the field must be filled");
                 }
-                airlines.setName(nama);
-                boolean updateSuccess = Controller.updateData(airlines); // Panggil fungsi update
+
+                int seat = Integer.parseInt(seatText);
+                airplanes.setAirlineName(airlineName);
+                airplanes.setAirplaneName(airplaneName);
+                airplanes.setSeat(seat);
+
+                boolean updateSuccess = Controller.updateData(airplanes);
 
                 if (updateSuccess) {
                     JOptionPane.showMessageDialog(frame, "Data berhasil diperbarui.", "Sukses",
@@ -89,14 +115,15 @@ public class InputAirlineData {
                 }
 
                 frame.dispose();
-                new AirlineData(airlines);
+                new AirplaneData(airplanes);
             }
         });
-        JButton delete = createGradientButton("DELETE", 132, 50, new Color(0, 153, 204), new Color(51, 204, 255));
+
+        JButton delete = createGradientButton("DELETE", 132, 140, new Color(0, 153, 204), new Color(51, 204, 255));
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nama = airlineField.getText();
+                String nama = airplaneField.getText();
                 int option = JOptionPane.showConfirmDialog(frame, "Apakah Anda yakin ingin menghapus data ?",
                         "Konfirmasi Penghapusan", JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
@@ -107,37 +134,45 @@ public class InputAirlineData {
                     } else {
                         JOptionPane.showMessageDialog(frame, "Gagal menghapus data dengan Nama " + nama + ".");
                     }
-                    new AirlineData(null);
+                    new AirplaneData(null);
                 }
             }
         });
 
-        JButton back = createGradientButton("BACK", 255, 50, new Color(51, 204, 255), new Color(0, 153, 204));
+        JButton back = createGradientButton("BACK", 235, 140, new Color(51, 204, 255), new Color(0, 153, 204));
         back.addActionListener(e -> {
             frame.dispose();
-            new AirlineData(airlines);
+            new AirplaneData(airplanes);
         });
 
-        JButton submit = createGradientButton("SUBMIT", 150, 50, new Color(0, 153, 204), new Color(51, 204, 255));
+        JButton submit = createGradientButton("SUBMIT", 120, 140, new Color(0, 153, 204), new Color(51, 204, 255));
         submit.addActionListener(e -> {
-            String name = airlineField.getText().trim();
+            Airline airline = new Airline();
+            String airlineName = airlineField.getText().trim();
+            String airplaneName = airplaneField.getText().trim();
+            String seatText = seatField.getText().trim();
 
-            if (name.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Name of airline must be filled");
+            if (airlineName.isEmpty() || airplaneName.isEmpty() || seatText.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "All of the field must be filled");
             }
-
-            Airline airline = new Airline(0, name);
-            String result = Controller.add(airline);
+            
+            int seatTotal = Integer.parseInt(seatText);
+            Airplane airplane = new Airplane(0, airline, airlineName, airplaneName, seatTotal);
+            String result = Controller.add(airplane);
             switch (result) {
                 case "SUCCESS":
-                    JOptionPane.showMessageDialog(frame, "Add airline successful!", "Success",
+                    JOptionPane.showMessageDialog(frame, "Add airplane successful!", "Success",
                             JOptionPane.INFORMATION_MESSAGE);
                     frame.dispose();
-                    new AirlineData(airline);
+                    new AirplaneData(airplane);
                     break;
                 case "NAME_EXISTS":
                     JOptionPane.showMessageDialog(frame,
-                            "Name of airline already in use. Please use a different name.", "Error",
+                            "Name of airplane already in use. Please use a different name.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    break;
+                case "AIRLINE_NOT_FOUND":
+                    JOptionPane.showMessageDialog(frame, "Name of airline is not found. Please check again the airline name.", "Error",
                             JOptionPane.ERROR_MESSAGE);
                     break;
                 default:
@@ -162,7 +197,9 @@ public class InputAirlineData {
             delete.setVisible(true);
             submit.setVisible(false);
 
-            airlineField.setText(airlines.getName());
+            airlineField.setText(airplanes.getAirlineName());
+            airplaneField.setText(airplanes.getAirplaneName());
+            seatField.setText(String.valueOf(airplanes.getSeat()));
         }
 
         frame.add(gradientPanel);

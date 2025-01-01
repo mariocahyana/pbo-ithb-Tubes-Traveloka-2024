@@ -20,16 +20,18 @@ public class AirlineController {
     // ADD new data airline
     public String add(Airline airline) {
         String query = "INSERT INTO airline (airline_name) VALUES (?)";
-        try (Connection conn = dbHandler.getConnection();
-                PreparedStatement ps = conn.prepareStatement(query)) {
+        try {
+            Connection conn = dbHandler.getConnection();
+            PreparedStatement ps = conn.prepareStatement(query);
 
             ps.setString(1, airline.getName());
-
             ps.executeUpdate();
             return "SUCCESS";
         } catch (SQLException e) {
-            if (e.getMessage().contains("Duplicate entry") && e.getMessage().contains("name")) {
-                return "NAME_EXISTS";
+            if ("23000".equals(e.getSQLState())) {
+                if (e.getMessage().contains("airline_name")) {
+                    return "NAME_EXISTS";
+                }
             }
             e.printStackTrace();
             return "ERROR";
@@ -96,8 +98,6 @@ public class AirlineController {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-            dbHandler.disconnect();
         }
     }
 

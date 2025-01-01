@@ -41,6 +41,8 @@ CREATE TABLE `airline` (
 CREATE TABLE `airplane` (
   `airplaneID` int(11) NOT NULL,
   `airlineID` int(11) NOT NULL,
+  `airline_name` varchar(10) NOT NULL,
+  `airplane_name` varchar(10) NOT NULL,
   `seat` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -151,14 +153,16 @@ CREATE TABLE `users` (
 -- Indexes for table `airline`
 --
 ALTER TABLE `airline`
-  ADD PRIMARY KEY (`airlineID`);
+  ADD PRIMARY KEY (`airlineID`),
+  ADD UNIQUE KEY `unique_airline_name` (`airline_name`);
 
 --
 -- Indexes for table `airplane`
 --
 ALTER TABLE `airplane`
   ADD PRIMARY KEY (`airplaneID`),
-  ADD KEY `airlineID` (`airlineID`);
+  ADD KEY `airlineID` (`airlineID`),
+  ADD UNIQUE KEY `unique_airline_name` (`airplane_name`);
 
 --
 -- Indexes for table `airport`

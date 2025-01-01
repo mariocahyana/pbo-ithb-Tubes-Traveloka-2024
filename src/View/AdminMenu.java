@@ -62,17 +62,17 @@ public class AdminMenu {
             new AirlineData(null);
         });
 
-        JButton flightSchedule = createGradientButton("FLIGHT SCHEDULE", 30, 170, new Color(0, 153, 204), new Color(51, 204, 255), e -> {
+        JButton airplaneData = createGradientButton("AIPLANE DATA", 30, 170, new Color(0, 153, 204), new Color(51, 204, 255), e -> {
+            frame.dispose();
+            new AirplaneData(null);
+        });
+
+        JButton airportData = createGradientButton("AIRPORT DATA", 30, 240, new Color(0, 153, 204), new Color(51, 204, 255), e -> {
             frame.dispose();
             new AdminMenu();
         });
 
-        JButton airplaneData = createGradientButton("AIPLANE DATA", 30, 240, new Color(0, 153, 204), new Color(51, 204, 255), e -> {
-            frame.dispose();
-            new AdminMenu();
-        });
-
-        JButton airportData = createGradientButton("AIRPORT DATA", 310, 30, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
+        JButton flightSchedule = createGradientButton("FLIGHT SCHEDULE", 310, 30, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
             frame.dispose();
             new AdminMenu();
         });
