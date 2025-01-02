@@ -48,14 +48,28 @@ public class CustomerMenu {
         });
         gradientPanel.add(writeReviewButton);
 
-        JButton viewReviewsButton = createButton("View Reviews", 180);
+        JButton viewReviewsButton = createButton("View Reviews", 160);
         viewReviewsButton.addActionListener(e -> {
             frame.dispose();
             new ViewReviewsView(user);
         });
         gradientPanel.add(viewReviewsButton);
 
-        JButton logoutButton = createButton("Logout", 260);
+        JButton topUpBalanceButton = createButton("Topup Balance", 220);
+        topUpBalanceButton.addActionListener(e -> {
+            frame.dispose();
+            new TopUpBalanceView(user);
+        });
+        gradientPanel.add(topUpBalanceButton);
+
+        JButton viewBalanceButton = createButton("View Balance", 280);
+        viewBalanceButton.addActionListener(e -> {
+            frame.dispose();
+            new ViewBalanceView(user);
+        });
+        gradientPanel.add(viewBalanceButton);
+
+        JButton logoutButton = createButton("Logout", 340);
         logoutButton.addActionListener(e -> {
             frame.dispose();
             new MainMenu();
