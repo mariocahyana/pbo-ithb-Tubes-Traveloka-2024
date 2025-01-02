@@ -162,13 +162,14 @@ ALTER TABLE `airline`
 ALTER TABLE `airplane`
   ADD PRIMARY KEY (`airplaneID`),
   ADD KEY `airlineID` (`airlineID`),
-  ADD UNIQUE KEY `unique_airline_name` (`airplane_name`);
+  ADD UNIQUE KEY `unique_airplane_name` (`airplane_name`);
 
 --
 -- Indexes for table `airport`
 --
 ALTER TABLE `airport`
-  ADD PRIMARY KEY (`airportID`);
+  ADD PRIMARY KEY (`airportID`),
+  ADD UNIQUE KEY `unique_airport_name` (`city`);
 
 --
 -- Indexes for table `flight`

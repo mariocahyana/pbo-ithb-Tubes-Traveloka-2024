@@ -2,15 +2,15 @@ package View;
 
 import javax.swing.*;
 
-import Controller.AirplaneController;
-import Model.Model_class.Airplane;
+import Controller.AirportController;
+import Model.Model_class.Airport;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class EditAirplaneData {
+public class EditAirportData {
     private JFrame frame;
-    private AirplaneController controller;
+    private AirportController controller;
     private JButton createGradientButton(String text, int xPosition, int yPosition, Color color1, Color color2, ActionListener action) {
         JButton button = new JButton(text) {
             @Override
@@ -22,7 +22,7 @@ public class EditAirplaneData {
                 super.paintComponent(g);
             }
         };
-        button.setBounds(xPosition, yPosition, 90, 50);
+        button.setBounds(xPosition, yPosition, 100, 50);
         button.setFont(new Font("SansSerif", Font.BOLD, 15));
         button.setForeground(Color.WHITE);
         button.setBorderPainted(false);
@@ -32,13 +32,13 @@ public class EditAirplaneData {
         return button;
     }
 
-    public EditAirplaneData(){
-        controller = new AirplaneController();
-        showEditAirplaneData();
+    public EditAirportData(){
+        controller = new AirportController();
+        showEditAirportData();
     }
 
-    public void showEditAirplaneData(){
-        frame = new JFrame("CARI AIRPLANE DATA");
+    public void showEditAirportData(){
+        frame = new JFrame("CARI AIRPORT DATA");
         frame.setSize(450, 150);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -57,7 +57,7 @@ public class EditAirplaneData {
         };
         gradientPanel.setLayout(null);
 
-        JLabel keyLabel = new JLabel("Masukkan Airplane ID : ");
+        JLabel keyLabel = new JLabel("Masukkan Airport ID : ");
         keyLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
         keyLabel.setBounds(10, 10, 200, 20);
         gradientPanel.add(keyLabel);
@@ -69,13 +69,13 @@ public class EditAirplaneData {
         JButton searchButton = createGradientButton("CARI", 200, 50, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
             if (!keyField.getText().isEmpty()) {
                 int keyFieldValue = Integer.parseInt(keyField.getText()); 
-                Airplane airplane = controller.getAirplane(keyFieldValue);
-                if (airplane != null) {
+                Airport airport = controller.getAirport(keyFieldValue);
+                if (airport != null) {
                     frame.dispose();
-                    new InputAirplaneData(2, airplane);
+                    new InputAirportData(2, airport);
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Data airplane tidak ditemukan!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Data airport tidak ditemukan!", "Notifikasi", JOptionPane.ERROR_MESSAGE);
                 }
             }
             else {
@@ -86,7 +86,7 @@ public class EditAirplaneData {
 
         JButton back = createGradientButton("BACK", 310, 50, new Color(0, 153, 204), new Color(51, 204, 255), e -> {
             frame.dispose();
-            new AirplaneData(null);
+            new AirlineData(null);
         });
         gradientPanel.add(back);
 

@@ -47,10 +47,8 @@ public class AirplaneController {
             return "SUCCESS";
 
         } catch (SQLException e) {
-            if ("23000".equals(e.getSQLState())) {
-                if (e.getMessage().contains("airplane_name")) {
-                    return "NAME_EXISTS";
-                }
+            if (e.getMessage().contains("Duplicate entry") && e.getMessage().contains("airplane_name")) {
+                return "NAME_EXISTS";
             }
             e.printStackTrace();
             return "ERROR";

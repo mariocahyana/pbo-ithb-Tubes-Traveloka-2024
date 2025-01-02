@@ -75,7 +75,7 @@ public class EditAirlineData {
                     new InputAirlineData(2, airline);
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Data tidak ditemukan!", "Notifikasi", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Data airline tidak ditemukan!", "Notifikasi", JOptionPane.ERROR_MESSAGE);
                 }
             }
             else {

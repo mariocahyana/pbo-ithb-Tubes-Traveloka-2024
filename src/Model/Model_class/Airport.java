@@ -1,21 +1,22 @@
 package Model.Model_class;
 
 public class Airport{
-    private String airportID, city;
+    private int airportID;
+    private String city;
 
     public Airport() {
     }
 
-    public Airport(String airportID, String city) {
+    public Airport(int airportID, String city) {
         this.airportID = airportID;
         this.city = city;
     }
 
-    public String getAirportID() {
+    public int getAirportID() {
         return airportID;
     }
 
-    public void setAirportID(String airportID) {
+    public void setAirportID(int airportID) {
         this.airportID = airportID;
     }
 
