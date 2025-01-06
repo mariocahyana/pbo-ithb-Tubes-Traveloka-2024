@@ -91,12 +91,12 @@ public class RegisterView {
             }
 
             if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-                JOptionPane.showMessageDialog(frame, "Invalid email format.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Example mario@microsoft :>", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             if (!phone.matches("\\d+")) {
-                JOptionPane.showMessageDialog(frame, "Phone number must be numeric.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Phone number must numeric.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -117,7 +117,7 @@ public class RegisterView {
                     JOptionPane.showMessageDialog(frame, "Phone number already in use. Please use a different phone number.", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
                 default:
-                    JOptionPane.showMessageDialog(frame, "Registration failed. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Registration failed. Try again :>.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 

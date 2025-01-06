@@ -1,23 +1,22 @@
 package View;
 
-import Controller.ViewReviewsController;
+import Controller.TopUpController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
-public class ViewReviewsView {
+public class ViewBalanceView {
     private JFrame frame;
-    private ViewReviewsController viewReviewsController;
+    private TopUpController topUpController;
 
-    public ViewReviewsView() {
-        viewReviewsController = new ViewReviewsController();
-        showReviews();
+    public ViewBalanceView() {
+        topUpController = new TopUpController();
+        showBalance();
     }
 
-    public void showReviews() {
-        frame = new JFrame("View Reviews");
-        frame.setSize(600, 500);
+    public void showBalance() {
+        frame = new JFrame("View Balance");
+        frame.setSize(400, 300);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -35,31 +34,23 @@ public class ViewReviewsView {
         };
         gradientPanel.setLayout(null);
 
-        JLabel titleLabel = new JLabel("View Reviews");
-        titleLabel.setBounds(0, 20, 600, 50);
+        JLabel titleLabel = new JLabel("Your Balance");
+        titleLabel.setBounds(0, 20, 400, 50);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         gradientPanel.add(titleLabel);
 
-        JTextArea reviewsArea = new JTextArea();
-        reviewsArea.setEditable(false);
+        double balance = topUpController.getBalance();
 
-        JScrollPane scrollPane = new JScrollPane(reviewsArea);
-        scrollPane.setBounds(50, 100, 500, 200);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        gradientPanel.add(scrollPane);
-
-        List<String> reviews = viewReviewsController.getAllReviews();
-        if (reviews.isEmpty()) {
-            reviewsArea.setText("No reviews available.");
-        } else {
-            reviewsArea.setText(String.join("\n", reviews));
-        }
+        JLabel balanceLabel = new JLabel("Balance: Rp" + balance);
+        balanceLabel.setBounds(50, 100, 300, 25);
+        balanceLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+        balanceLabel.setForeground(Color.WHITE);
+        gradientPanel.add(balanceLabel);
 
         JButton backButton = createButton("Back", new Color(0, 153, 204), new Color(51, 204, 255));
-        backButton.setBounds(180, 320, 240, 50);
+        backButton.setBounds(130, 180, 140, 40);
         backButton.addActionListener(e -> {
             frame.dispose();
             new CustomerMenu();
@@ -82,7 +73,7 @@ public class ViewReviewsView {
             }
         };
         button.setForeground(Color.WHITE);
-        button.setFont(new Font("SansSerif", Font.BOLD, 16));
+        button.setFont(new Font("SansSerif", Font.BOLD, 14));
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setContentAreaFilled(false);

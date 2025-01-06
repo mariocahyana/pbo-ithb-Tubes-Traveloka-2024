@@ -1,7 +1,6 @@
 package View;
 
 import Controller.WriteReviewController;
-import Model.Model_class.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +8,8 @@ import java.awt.*;
 public class WriteReviewView {
     private JFrame frame;
     private WriteReviewController writeReviewController;
-    private User user;
 
-    public WriteReviewView(User user) {
-        this.user = user;
+    public WriteReviewView() {
         writeReviewController = new WriteReviewController();
         showWriteReviewForm();
     }
@@ -54,25 +51,27 @@ public class WriteReviewView {
         reviewArea.setBounds(50, 140, 500, 100);
         gradientPanel.add(reviewArea);
 
-        JButton submitButton = createButton("Submit", 260);
+        JButton submitButton = createButton("Submit", new Color(0, 153, 204), new Color(51, 204, 255));
+        submitButton.setBounds(180, 260, 240, 50);
         submitButton.addActionListener(e -> {
             String review = reviewArea.getText().trim();
             if (review.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "hrs diisi!", "Error", JOptionPane.ERROR_MESSAGE);
-            } else if (writeReviewController.saveReview(user, review)) {
-                JOptionPane.showMessageDialog(frame, "sukses!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Review harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (writeReviewController.saveReview(review)) {
+                JOptionPane.showMessageDialog(frame, "Review berhasil disimpan!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
-                new CustomerMenu(user);
+                new CustomerMenu();
             } else {
-                JOptionPane.showMessageDialog(frame, "fail.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Gagal menyimpan review.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         gradientPanel.add(submitButton);
 
-        JButton backButton = createButton("Back", 320);
+        JButton backButton = createButton("Back", new Color(0, 153, 204), new Color(51, 204, 255));
+        backButton.setBounds(180, 320, 240, 50);
         backButton.addActionListener(e -> {
             frame.dispose();
-            new CustomerMenu(user);
+            new CustomerMenu();
         });
         gradientPanel.add(backButton);
 
@@ -80,22 +79,19 @@ public class WriteReviewView {
         frame.setVisible(true);
     }
 
-    private JButton createButton(String text, int yPosition) {
+    private JButton createButton(String text, Color color1, Color color2) {
         JButton button = new JButton(text) {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
-                Color color1 = new Color(0, 153, 204);
-                Color color2 = new Color(51, 204, 255);
                 GradientPaint gp = new GradientPaint(0, 0, color1, getWidth(), getHeight(), color2);
                 g2d.setPaint(gp);
                 g2d.fillRect(0, 0, getWidth(), getHeight());
                 super.paintComponent(g);
             }
         };
-        button.setBounds(180, yPosition, 240, 50);
-        button.setFont(new Font("SansSerif", Font.BOLD, 16));
         button.setForeground(Color.WHITE);
+        button.setFont(new Font("SansSerif", Font.BOLD, 16));
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setContentAreaFilled(false);
