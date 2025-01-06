@@ -74,7 +74,7 @@ public class AdminMenu {
 
         JButton flightSchedule = createGradientButton("FLIGHT SCHEDULE", 310, 30, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
             frame.dispose();
-            new AdminMenu();
+            new FlightData(null);
         });
 
         JButton reschedule = createGradientButton("RESCHEDULE", 310, 100, new Color(51, 204, 255), new Color(0, 153, 204), e -> {

@@ -12,7 +12,7 @@ import Model.Model_class.Airplane;
 
 public class InputAirplaneData {
     private JFrame frame;
-    private AirplaneController Controller;
+    private AirplaneController controller;
 
     private JButton createGradientButton(String text, int xPosition, int yPosition, Color color1, Color color2) {
         JButton button = new JButton(text) {
@@ -35,7 +35,7 @@ public class InputAirplaneData {
     }
 
     public InputAirplaneData(int actionValue, Airplane airplanes) {
-        Controller = new AirplaneController();
+        controller = new AirplaneController();
         showInputAirplaneData(actionValue, airplanes);
     }
 
@@ -105,17 +105,16 @@ public class InputAirplaneData {
                 airplanes.setAirplaneName(airplaneName);
                 airplanes.setSeat(seat);
 
-                boolean updateSuccess = Controller.updateData(airplanes);
+                boolean updateSuccess = controller.updateData(airplanes);
 
                 if (updateSuccess) {
                     JOptionPane.showMessageDialog(frame, "Data berhasil diperbarui.", "Sukses",
                             JOptionPane.INFORMATION_MESSAGE);
+                    frame.dispose();
+                    new AirplaneData(airplanes);
                 } else {
                     JOptionPane.showMessageDialog(frame, "Gagal memperbarui data.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-                frame.dispose();
-                new AirplaneData(airplanes);
             }
         });
 
@@ -128,7 +127,7 @@ public class InputAirplaneData {
                         "Konfirmasi Penghapusan", JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
                     frame.dispose();
-                    boolean deleteSuccess = Controller.deleteData(nama);
+                    boolean deleteSuccess = controller.deleteData(nama);
                     if (deleteSuccess) {
                         JOptionPane.showMessageDialog(frame, "Data dengan Nama " + nama + " berhasil dihapus.");
                     } else {
@@ -155,10 +154,10 @@ public class InputAirplaneData {
             if (airlineName.isEmpty() || airplaneName.isEmpty() || seatText.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "All of the field must be filled");
             }
-            
+
             int seatTotal = Integer.parseInt(seatText);
             Airplane airplane = new Airplane(0, airline, airlineName, airplaneName, seatTotal);
-            String result = Controller.add(airplane);
+            String result = controller.add(airplane);
             switch (result) {
                 case "SUCCESS":
                     JOptionPane.showMessageDialog(frame, "Add airplane successful!", "Success",
@@ -172,7 +171,8 @@ public class InputAirplaneData {
                             JOptionPane.ERROR_MESSAGE);
                     break;
                 case "AIRLINE_NOT_FOUND":
-                    JOptionPane.showMessageDialog(frame, "Name of airline is not found. Please check again the airline name.", "Error",
+                    JOptionPane.showMessageDialog(frame,
+                            "Name of airline is not found. Please check again the airline name.", "Error",
                             JOptionPane.ERROR_MESSAGE);
                     break;
                 default:

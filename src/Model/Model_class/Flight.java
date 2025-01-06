@@ -3,34 +3,47 @@ package Model.Model_class;
 import Model.Model_enum.*;
 
 public class Flight {
-    private String flightID;
+    private int flightID;
+    private String flightName;
     private Airplane airplane;
     private int countTicket;
     private Airport origin;
     private Airport destination;
+    private String airplaneName;
+    private String originCity;
+    private String destinationCity;
     private String departureTime;
     private String arrivalTime;
     private FlightClass flightClass;
     private double price;
-    public Flight() {
-    }
-    public Flight(String flightID, Airplane airplane, int countTicket, Airport origin, Airport destination,
-            String departureTime, String arrivalTime, FlightClass flightClass, double price) {
+    public Flight(int flightID, String flightName, Airplane airplane, int countTicket, Airport origin,
+            Airport destination, String airplaneName, String originCity, String destinationCity, String departureTime,
+            String arrivalTime, FlightClass flightClass, double price) {
         this.flightID = flightID;
+        this.flightName = flightName;
         this.airplane = airplane;
         this.countTicket = countTicket;
         this.origin = origin;
         this.destination = destination;
+        this.airplaneName = airplaneName;
+        this.originCity = originCity;
+        this.destinationCity = destinationCity;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.flightClass = flightClass;
         this.price = price;
     }
-    public String getFlightID() {
+    public int getFlightID() {
         return flightID;
     }
-    public void setFlightID(String flightID) {
+    public void setFlightID(int flightID) {
         this.flightID = flightID;
+    }
+    public String getFlightName() {
+        return flightName;
+    }
+    public void setFlightName(String flightName) {
+        this.flightName = flightName;
     }
     public Airplane getAirplane() {
         return airplane;
@@ -56,6 +69,24 @@ public class Flight {
     public void setDestination(Airport destination) {
         this.destination = destination;
     }
+    public String getAirplaneName() {
+        return airplaneName;
+    }
+    public void setAirplaneName(String airplaneName) {
+        this.airplaneName = airplaneName;
+    }
+    public String getOriginCity() {
+        return originCity;
+    }
+    public void setOriginCity(String originCity) {
+        this.originCity = originCity;
+    }
+    public String getDestinationCity() {
+        return destinationCity;
+    }
+    public void setDestinationCity(String destinationCity) {
+        this.destinationCity = destinationCity;
+    }
     public String getDepartureTime() {
         return departureTime;
     }
@@ -80,4 +111,7 @@ public class Flight {
     public void setPrice(double price) {
         this.price = price;
     }
+    public Flight() {
+    }
+    
 }
