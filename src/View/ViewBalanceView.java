@@ -1,7 +1,7 @@
 package View;
 
 import Controller.TopUpController;
-import Model.Model_class.User;
+import Controller.LoginController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +9,8 @@ import java.awt.*;
 public class ViewBalanceView {
     private JFrame frame;
     private TopUpController topUpController;
-    private User user;
 
-    public ViewBalanceView(User user) {
-        this.user = user;
+    public ViewBalanceView() {
         topUpController = new TopUpController();
         showBalance();
     }
@@ -44,7 +42,8 @@ public class ViewBalanceView {
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         gradientPanel.add(titleLabel);
 
-        double balance = topUpController.getBalance(user.getUserID());
+        double balance = topUpController.getBalance();
+
         JLabel balanceLabel = new JLabel("Balance: Rp" + balance);
         balanceLabel.setBounds(50, 100, 300, 25);
         balanceLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
@@ -55,7 +54,7 @@ public class ViewBalanceView {
         backButton.setBounds(130, 180, 140, 40);
         backButton.addActionListener(e -> {
             frame.dispose();
-            new CustomerMenu(user);
+            new CustomerMenu();
         });
         gradientPanel.add(backButton);
 

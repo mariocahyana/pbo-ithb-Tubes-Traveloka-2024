@@ -11,13 +11,13 @@ public class LoginView {
     private LoginController loginController;
 
     public LoginView() {
-        loginController = new LoginController();
+        loginController = LoginController.getInstance();
         showLoginForm();
     }
 
     public void showLoginForm() {
         frame = new JFrame("Login");
-        frame.setSize(400, 300);
+        frame.setSize(400, 350);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -56,29 +56,27 @@ public class LoginView {
         gradientPanel.add(passwordField);
 
         JButton loginButton = createGradientButton("Login", new Color(0, 153, 204), new Color(51, 204, 255));
-        loginButton.setBounds(50, 150, 140, 40);
+        loginButton.setBounds(50, 200, 140, 40);
         loginButton.addActionListener(e -> {
             String email = emailField.getText().trim();
             String password = new String(passwordField.getPassword()).trim();
 
             if (email.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Email and password cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Email and password cannot be empty.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             User user = loginController.login(email, password);
             if (user != null) {
-                switch (user.getStatus()) {
-                    case ADMIN:
-                    JOptionPane.showMessageDialog(frame, "Login successful! Welcome, Admin " + user.getNama(), "Success", JOptionPane.INFORMATION_MESSAGE);
-                    frame.dispose();
+                JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + user.getNama(), "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+                frame.dispose();
+
+                if (user.getStatus().toString().equalsIgnoreCase("ADMIN")) {
                     new AdminMenu();
-                    break;
-                case CUSTOMER:
-                    JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + user.getNama(), "Success", JOptionPane.INFORMATION_MESSAGE);
-                    frame.dispose();
-                    new CustomerMenu(user);
-                    break;
+                } else {
+                    new CustomerMenu();
                 }
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -87,7 +85,7 @@ public class LoginView {
         gradientPanel.add(loginButton);
 
         JButton backButton = createGradientButton("Back", new Color(0, 153, 204), new Color(51, 204, 255));
-        backButton.setBounds(210, 150, 140, 40);
+        backButton.setBounds(210, 200, 140, 40);
         backButton.addActionListener(e -> {
             frame.dispose();
             new MainMenu();

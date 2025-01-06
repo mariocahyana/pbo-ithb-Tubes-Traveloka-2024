@@ -1,7 +1,6 @@
 package View;
 
 import Controller.ViewReviewsController;
-import Model.Model_class.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,10 +9,8 @@ import java.util.List;
 public class ViewReviewsView {
     private JFrame frame;
     private ViewReviewsController viewReviewsController;
-    private User user; 
 
-    public ViewReviewsView(User user) {
-        this.user = user;
+    public ViewReviewsView() {
         viewReviewsController = new ViewReviewsController();
         showReviews();
     }
@@ -65,7 +62,7 @@ public class ViewReviewsView {
         backButton.setBounds(180, 320, 240, 50);
         backButton.addActionListener(e -> {
             frame.dispose();
-            new CustomerMenu(user);
+            new CustomerMenu();
         });
         gradientPanel.add(backButton);
 

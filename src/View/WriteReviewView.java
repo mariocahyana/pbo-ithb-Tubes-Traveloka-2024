@@ -1,7 +1,6 @@
 package View;
 
 import Controller.WriteReviewController;
-import Model.Model_class.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +8,8 @@ import java.awt.*;
 public class WriteReviewView {
     private JFrame frame;
     private WriteReviewController writeReviewController;
-    private User user;
 
-    public WriteReviewView(User user) {
-        this.user = user;
+    public WriteReviewView() {
         writeReviewController = new WriteReviewController();
         showWriteReviewForm();
     }
@@ -59,13 +56,13 @@ public class WriteReviewView {
         submitButton.addActionListener(e -> {
             String review = reviewArea.getText().trim();
             if (review.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "hrs diisi!", "Error", JOptionPane.ERROR_MESSAGE);
-            } else if (writeReviewController.saveReview(user, review)) {
-                JOptionPane.showMessageDialog(frame, "sukses!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Review harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (writeReviewController.saveReview(review)) {
+                JOptionPane.showMessageDialog(frame, "Review berhasil disimpan!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
-                new CustomerMenu(user);
+                new CustomerMenu();
             } else {
-                JOptionPane.showMessageDialog(frame, "fail.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Gagal menyimpan review.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         gradientPanel.add(submitButton);
@@ -74,7 +71,7 @@ public class WriteReviewView {
         backButton.setBounds(180, 320, 240, 50);
         backButton.addActionListener(e -> {
             frame.dispose();
-            new CustomerMenu(user);
+            new CustomerMenu();
         });
         gradientPanel.add(backButton);
 

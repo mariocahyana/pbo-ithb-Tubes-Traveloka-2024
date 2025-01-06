@@ -1,10 +1,10 @@
 package Controller;
 
-import Model.Model_class.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import Model.Model_class.User;
 
 public class WriteReviewController {
     private DatabaseHandler dbHandler;
@@ -14,7 +14,13 @@ public class WriteReviewController {
         dbHandler.connect();
     }
 
-    public boolean saveReview(User user, String review) {
+    public boolean saveReview(String review) {
+        User user = LoginController.getInstance().getLoggedInUser();
+        if (user == null) {
+            System.out.println("No logged-in user.");
+            return false;
+        }
+
         String query = "INSERT INTO review (userID, customer_review, date_review) VALUES (?, ?, ?)";
         try (Connection con = dbHandler.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {

@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.Model_class.User;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,12 +15,18 @@ public class TopUpController {
         dbHandler.connect();
     }
 
-    public boolean topUpBalance(int userId, double amount) {
+    public boolean topUpBalance(double amount) {
+        User user = LoginController.getInstance().getLoggedInUser();
+        if (user == null) {
+            System.out.println("No logged-in user.");
+            return false;
+        }
+
         String query = "UPDATE users SET balance = balance + ? WHERE userID = ?";
         try (Connection con = dbHandler.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
             ps.setDouble(1, amount);
-            ps.setInt(2, userId);
+            ps.setInt(2, user.getUserID());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -26,11 +34,17 @@ public class TopUpController {
         }
     }
 
-    public double getBalance(int userId) {
+    public double getBalance() {
+        User user = LoginController.getInstance().getLoggedInUser();
+        if (user == null) {
+            System.out.println("No logged-in user.");
+            return 0.0;
+        }
+
         String query = "SELECT balance FROM users WHERE userID = ?";
         try (Connection con = dbHandler.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
-            ps.setInt(1, userId);
+            ps.setInt(1, user.getUserID());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getDouble("balance");

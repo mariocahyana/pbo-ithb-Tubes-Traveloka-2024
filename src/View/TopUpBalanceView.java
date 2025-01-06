@@ -1,7 +1,7 @@
 package View;
 
 import Controller.TopUpController;
-import Model.Model_class.User;
+import Controller.LoginController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +9,8 @@ import java.awt.*;
 public class TopUpBalanceView {
     private JFrame frame;
     private TopUpController topUpController;
-    private User user;
 
-    public TopUpBalanceView(User user) {
-        this.user = user;
+    public TopUpBalanceView() {
         topUpController = new TopUpController();
         showTopUpForm();
     }
@@ -62,11 +60,13 @@ public class TopUpBalanceView {
                 JOptionPane.showMessageDialog(frame, "Please enter a valid amount.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
             double amount = Double.parseDouble(amountText);
-            if (topUpController.topUpBalance(user.getUserID(), amount)) {
+
+            if (topUpController.topUpBalance(amount)) {
                 JOptionPane.showMessageDialog(frame, "Top Up Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
-                new ViewBalanceView(user);
+                new ViewBalanceView();
             } else {
                 JOptionPane.showMessageDialog(frame, "Failed to Top Up. Try Again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -77,14 +77,13 @@ public class TopUpBalanceView {
         backButton.setBounds(200, 170, 140, 40);
         backButton.addActionListener(e -> {
             frame.dispose();
-            new CustomerMenu(user);
+            new CustomerMenu();
         });
         gradientPanel.add(backButton);
 
         frame.add(gradientPanel);
         frame.setVisible(true);
     }
-
 
     private JButton createButton(String text, Color color1, Color color2) {
         JButton button = new JButton(text) {

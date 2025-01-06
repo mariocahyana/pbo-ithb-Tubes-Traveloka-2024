@@ -1,20 +1,26 @@
 package View;
 
-import Model.Model_class.User;
+import Controller.LoginController;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class CustomerMenu {
     private JFrame frame;
-    private User user;
 
-    public CustomerMenu(User user) {
-        this.user = user;
+    public CustomerMenu() {
         showMenu();
     }
 
     public void showMenu() {
+        var user = LoginController.getInstance().getLoggedInUser();
+
+        if (user == null) {
+            JOptionPane.showMessageDialog(null, "No user is logged in!", "Error", JOptionPane.ERROR_MESSAGE);
+            new MainMenu();
+            return;
+        }
+
         frame = new JFrame("Customer Menu");
         frame.setSize(600, 500);
         frame.setLocationRelativeTo(null);
@@ -45,23 +51,23 @@ public class CustomerMenu {
         writeReviewButton.setBounds(180, 100, 240, 50);
         writeReviewButton.addActionListener(e -> {
             frame.dispose();
-            new WriteReviewView(user);
+            new WriteReviewView();
         });
         gradientPanel.add(writeReviewButton);
 
-        JButton viewReviewsButton = createButton("View a Reviews", new Color(0, 153, 204), new Color(51, 204, 255));
+        JButton viewReviewsButton = createButton("View Reviews", new Color(0, 153, 204), new Color(51, 204, 255));
         viewReviewsButton.setBounds(180, 160, 240, 50);
         viewReviewsButton.addActionListener(e -> {
             frame.dispose();
-            new ViewReviewsView(user);
+            new ViewReviewsView();
         });
         gradientPanel.add(viewReviewsButton);
 
-        JButton topUpBalanceButton = createButton("Topup Balance", new Color(0, 153, 204), new Color(51, 204, 255));
-        topUpBalanceButton.setBounds(180, 220, 240, 50);        
+        JButton topUpBalanceButton = createButton("Top Up Balance", new Color(0, 153, 204), new Color(51, 204, 255));
+        topUpBalanceButton.setBounds(180, 220, 240, 50);
         topUpBalanceButton.addActionListener(e -> {
             frame.dispose();
-            new TopUpBalanceView(user);
+            new TopUpBalanceView();
         });
         gradientPanel.add(topUpBalanceButton);
 
@@ -69,13 +75,14 @@ public class CustomerMenu {
         viewBalanceButton.setBounds(180, 280, 240, 50);
         viewBalanceButton.addActionListener(e -> {
             frame.dispose();
-            new ViewBalanceView(user);
+            new ViewBalanceView();
         });
         gradientPanel.add(viewBalanceButton);
 
         JButton logoutButton = createButton("Logout", new Color(0, 153, 204), new Color(51, 204, 255));
         logoutButton.setBounds(180, 340, 240, 50);
         logoutButton.addActionListener(e -> {
+            LoginController.getInstance().logout();
             frame.dispose();
             new MainMenu();
         });
