@@ -22,7 +22,7 @@ public class RegisterController {
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());
             ps.setString(4, user.getNoTelp());
-            ps.setDouble(5, 0.0); // Default balance
+            ps.setDouble(5, 0.0);
             ps.setString(6, user.getStatus().toString());
 
             ps.executeUpdate();

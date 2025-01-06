@@ -69,7 +69,7 @@ public class LoginView {
 
             User user = loginController.login(email, password);
             if (user != null) {
-                JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + user.getNama(), "Success",
+                JOptionPane.showMessageDialog(frame, "Login successful!!! Welcome, " + user.getNama(), "Success",
                         JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
 

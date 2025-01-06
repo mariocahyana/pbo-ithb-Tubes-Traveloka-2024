@@ -17,7 +17,7 @@ public class WriteReviewController {
     public boolean saveReview(String review) {
         User user = LoginController.getInstance().getLoggedInUser();
         if (user == null) {
-            System.out.println("No logged-in user.");
+            System.out.println("Tidak ada user yang login.");
             return false;
         }
 
