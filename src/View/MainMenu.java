@@ -45,17 +45,17 @@ public class MainMenu {
         title2.setForeground(Color.WHITE);
         gradientPanel.add(title2);
 
-        JButton loginButton = createGradientButton("LOGIN", 170, e -> {
+        JButton loginButton = createButton("LOGIN", 170, e -> {
             frame.dispose();
             new LoginView();
         });
 
-        JButton registerButton = createGradientButton("REGISTER", 240, e -> {
+        JButton registerButton = createButton("REGISTER", 240, e -> {
             frame.dispose();
             new RegisterView();
         });
 
-        JButton exitButton = createGradientButton("EXIT", 310, e -> frame.dispose());
+        JButton exitButton = createButton("EXIT", 310, e -> frame.dispose());
 
         gradientPanel.add(loginButton);
         gradientPanel.add(registerButton);
@@ -65,7 +65,7 @@ public class MainMenu {
         frame.setVisible(true);
     }
 
-    private JButton createGradientButton(String text, int yPosition, ActionListener action) {
+    private JButton createButton(String text, int yPosition, ActionListener action) {
         JButton button = new JButton(text) {
             @Override
             protected void paintComponent(Graphics g) {
