@@ -3,6 +3,7 @@ package Controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import Model.Model_class.User;
 
 public class UpdateProfileController {
     private DatabaseHandler dbHandler;
@@ -13,7 +14,12 @@ public class UpdateProfileController {
     }
 
     public boolean updateProfile(String name, String email, String phone) {
-        int userId = LoginController.getInstance().getLoggedInUser().getUserID();
+        User user = LoginController.getInstance().getLoggedInUser();
+        if (user == null) {
+            System.out.println("Tidak ada user yang login.");
+            return false;
+        }
+
         String query = "UPDATE users SET name = ?, email = ?, phone_num = ? WHERE userID = ?";
 
         try (Connection con = dbHandler.getConnection();
@@ -22,13 +28,13 @@ public class UpdateProfileController {
             ps.setString(1, name);
             ps.setString(2, email);
             ps.setString(3, phone);
-            ps.setInt(4, userId);
+            ps.setInt(4, user.getUserID());
 
             int updatedData = ps.executeUpdate();
             if (updatedData > 0) {
-                LoginController.getInstance().getLoggedInUser().setNama(name);
-                LoginController.getInstance().getLoggedInUser().setEmail(email);
-                LoginController.getInstance().getLoggedInUser().setNoTelp(phone);
+                user.setNama(name);
+                user.setEmail(email);
+                user.setNoTelp(phone);
                 return true;
             }
         } catch (SQLException e) {

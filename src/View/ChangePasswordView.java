@@ -1,7 +1,6 @@
 package View;
 
 import Controller.ChangePasswordController;
-import Controller.LoginController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -89,13 +88,12 @@ public class ChangePasswordView {
                 return;
             }
 
-            int userId = LoginController.getInstance().getLoggedInUser().getUserID();
-            if (changePasswordController.changePassword(userId, oldPassword, newPassword)) {
+            if (changePasswordController.changePassword(oldPassword, newPassword)) {
                 JOptionPane.showMessageDialog(frame, "Password changed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
                 new CustomerMenu();
             } else {
-                JOptionPane.showMessageDialog(frame, "Failed. Input your correct password", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Failed. Input your correct password.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         gradientPanel.add(changePasswordButton);
