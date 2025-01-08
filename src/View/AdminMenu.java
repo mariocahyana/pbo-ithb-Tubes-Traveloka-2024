@@ -1,6 +1,9 @@
 package View;
 
 import javax.swing.*;
+
+import Controller.LoginController;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -84,12 +87,13 @@ public class AdminMenu {
 
         JButton customerReview = createGradientButton("CUSTOMER REVIEW", 310, 170, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
             frame.dispose();
-            new AdminMenu();
+            new AdminFeedbackView();
         });
 
         JButton exit = createGradientButton("LOG OUT", 310, 240, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
+            LoginController.getInstance().logout();
             frame.dispose();
-            new LoginView();
+            new MainMenu();
         });
 
         gradientPanel.add(customerTransaction);
