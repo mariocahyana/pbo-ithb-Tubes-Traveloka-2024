@@ -83,7 +83,8 @@ CREATE TABLE `flight` (
 
 CREATE TABLE `reply` (
   `reviewID` int(11) NOT NULL,
-  `userID` int(11) NOT NULL
+  `userID` int(11) NOT NULL,
+  `reply_admin` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -212,7 +213,9 @@ ALTER TABLE `transaksi`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`userID`);
+  ADD PRIMARY KEY (`userID`),
+  ADD UNIQUE KEY `unique_email` (`email`),
+  ADD UNIQUE KEY `unique_phone_num` (`phone_num`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -288,8 +291,8 @@ ALTER TABLE `flight`
 -- Constraints for table `reply`
 --
 ALTER TABLE `reply`
-  ADD CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`reviewID`) REFERENCES `review` (`reviewID`),
-  ADD CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
+  ADD CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`reviewID`) REFERENCES `review` (`reviewID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `reschedule_request`
