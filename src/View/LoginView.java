@@ -62,15 +62,13 @@ public class LoginView {
             String password = new String(passwordField.getPassword()).trim();
 
             if (email.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Email and password cannot be empty.", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Email atau password tolong diisi dulu ya");
                 return;
             }
 
             User user = loginController.login(email, password);
             if (user != null) {
-                JOptionPane.showMessageDialog(frame, "Login successful!!! Welcome, " + user.getNama(), "Success",
-                        JOptionPane.INFORMATION_MESSAGE);
+                AlertDesignTemplate.showInfoDialog(frame, "Success", "Yeyy berhasil loginn !!! Hii, " + user.getNama());
                 frame.dispose();
 
                 if (user.getStatus().toString().equalsIgnoreCase("ADMIN")) {
@@ -79,7 +77,7 @@ public class LoginView {
                     new CustomerMenu();
                 }
             } else {
-                JOptionPane.showMessageDialog(frame, "Invalid email or password.", "Error", JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Email atau passwordmu ndak bener nih.");
             }
         });
         gradientPanel.add(loginButton);

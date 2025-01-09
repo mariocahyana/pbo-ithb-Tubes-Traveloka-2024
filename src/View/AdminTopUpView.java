@@ -87,7 +87,7 @@ public class AdminTopUpView {
                 int requestID = (int) table.getValueAt(selectedRow, 0);
                 handleTopUpAction(requestID, true, selectedRow, model);
             } else {
-                showWarningMessage("Please select a row to approve.");
+                showWarningMessage("Pilih dulu ya, mana yang mau di approve :)");
             }
         }, true);
 
@@ -97,7 +97,7 @@ public class AdminTopUpView {
                 int requestID = (int) table.getValueAt(selectedRow, 0);
                 handleTopUpAction(requestID, false, selectedRow, model);
             } else {
-                showWarningMessage("Please select a row to reject.");
+                showWarningMessage("Pilih dulu ya, mana yang mau di reject :)");
             }
         }, true);
 
@@ -199,22 +199,22 @@ public class AdminTopUpView {
             topUpController.rejectTopUpRequest(requestID);
 
         if (success) {
-            showSuccessMessage(isApprove ? "Request approved successfully!" : "Request rejected successfully!");
+            showSuccessMessage(isApprove ? "Yeyy, berhasil approve!" : "Yeyy, berhasil nge reject!");
             model.removeRow(selectedRow);
         } else {
-            showErrorMessage(isApprove ? "Failed to approve request." : "Failed to reject request.");
+            showErrorMessage(isApprove ? "Yahhh gagal approve :(" : "Yahhh gagal nge reject");
         }
     }
 
     private void showSuccessMessage(String message) {
-        JOptionPane.showMessageDialog(frame, message, "Success", JOptionPane.INFORMATION_MESSAGE);
+        AlertDesignTemplate.showInfoDialog(frame, "Success", message);
     }
-
+    
     private void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(frame, message, "Error", JOptionPane.ERROR_MESSAGE);
+        AlertDesignTemplate.showErrorDialog(frame, "Error", message);
     }
-
+    
     private void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(frame, message, "Warning", JOptionPane.WARNING_MESSAGE);
+        AlertDesignTemplate.showErrorDialog(frame, "Warning", message);
     }
 }

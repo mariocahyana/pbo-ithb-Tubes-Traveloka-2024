@@ -56,14 +56,14 @@ public class WriteReviewView {
         submitButton.addActionListener(e -> {
             String review = reviewArea.getText().trim();
             if (review.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Review harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Review jangan kosong dongg");
             } else if (writeReviewController.saveReview(review)) {
-                JOptionPane.showMessageDialog(frame, "Review berhasil disimpan!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                AlertDesignTemplate.showInfoDialog(frame, "Success", "Yeyy, review udah kesimpen nihh");
                 frame.dispose();
                 new CustomerMenu();
             } else {
-                JOptionPane.showMessageDialog(frame, "Gagal menyimpan review.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Yahh, gagal nyimpen review mu");
+            }            
         });
         gradientPanel.add(submitButton);
 

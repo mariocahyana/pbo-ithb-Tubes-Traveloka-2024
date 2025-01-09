@@ -86,17 +86,17 @@ public class RegisterView {
             String phone = phoneField.getText().trim();
 
             if (name.isEmpty() || password.isEmpty() || email.isEmpty() || phone.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "All fields must be filled.", "Error", JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Isi Semua field yaa");
                 return;
             }
 
             if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-                JOptionPane.showMessageDialog(frame, "Example mario@microsoft :>", "Error", JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "format emailnya ni => mario@microsoft");
                 return;
             }
 
             if (!phone.matches("\\d+")) {
-                JOptionPane.showMessageDialog(frame, "Phone number must numeric.", "Error", JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Nomer telepon harus angka ya");
                 return;
             }
 
@@ -106,18 +106,18 @@ public class RegisterView {
 
             switch (result) {
                 case "SUCCESS":
-                    JOptionPane.showMessageDialog(frame, "Registration successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    AlertDesignTemplate.showInfoDialog(frame, "Success", "Yey, regis berhasil :)");
                     frame.dispose();
                     new MainMenu();
                     break;
                 case "EMAIL_EXISTS":
-                    JOptionPane.showMessageDialog(frame, "Email already in use. Please use a different email.", "Error", JOptionPane.ERROR_MESSAGE);
+                    AlertDesignTemplate.showErrorDialog(frame, "Error", "Email udah pernah kedaftar ni, pake email lain dong");
                     break;
                 case "PHONE_EXISTS":
-                    JOptionPane.showMessageDialog(frame, "Phone number already in use. Please use a different phone number.", "Error", JOptionPane.ERROR_MESSAGE);
+                    AlertDesignTemplate.showErrorDialog(frame, "Error", "Nomer udah pernah kedaftar ni, pake nomer lain dong");
                     break;
                 default:
-                    JOptionPane.showMessageDialog(frame, "Registration failed. Try again :>.", "Error", JOptionPane.ERROR_MESSAGE);
+                    AlertDesignTemplate.showErrorDialog(frame, "Error", "Yah, regis gagal. Coba lagi aja");
             }
         });
 

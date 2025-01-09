@@ -16,7 +16,7 @@ public class CustomerMenu {
         var user = LoginController.getInstance().getLoggedInUser();
 
         if (user == null) {
-            JOptionPane.showMessageDialog(null, "No user is login!", "Error", JOptionPane.ERROR_MESSAGE);
+            AlertDesignTemplate.showErrorDialog(frame, "Error", "Gada user yang login nihh");
             new MainMenu();
             return;
         }

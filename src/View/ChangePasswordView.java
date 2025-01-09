@@ -77,25 +77,25 @@ public class ChangePasswordView {
             String oldPassword = new String(oldPasswordField.getPassword()).trim();
             String newPassword = new String(newPasswordField.getPassword()).trim();
             String confirmPassword = new String(confirmPasswordField.getPassword()).trim();
-
+        
             if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "All fields must be filled.", "Error", JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Isi dulu semua field yash!");
                 return;
             }
-
+        
             if (!newPassword.equals(confirmPassword)) {
-                JOptionPane.showMessageDialog(frame, "New passwords do not match.", "Error", JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Cocokin lagi ya pass barunya");
                 return;
             }
-
+        
             if (changePasswordController.changePassword(oldPassword, newPassword)) {
-                JOptionPane.showMessageDialog(frame, "Password changed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                AlertDesignTemplate.showInfoDialog(frame, "Success", "Yeyyy, berhasil ngubah pass!");
                 frame.dispose();
                 new CustomerMenu();
             } else {
-                JOptionPane.showMessageDialog(frame, "Failed. Input your correct password.", "Error", JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Yahhh, masukin pass yang bener yaa");
             }
-        });
+        });        
         gradientPanel.add(changePasswordButton);
 
         JButton backButton = createButton("Back", new Color(0, 153, 204), new Color(51, 204, 255));
