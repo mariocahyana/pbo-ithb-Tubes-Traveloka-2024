@@ -24,7 +24,7 @@ public class AdminFeedbackView {
     }
 
     public void showFeedbacks() {
-        frame = new JFrame("Admin: View Feedbacks");
+        frame = new JFrame("VIEW FEEDBACKS");
         frame.setSize(900, 700);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

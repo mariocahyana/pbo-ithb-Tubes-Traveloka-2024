@@ -53,26 +53,26 @@ public class TopUpController {
     }
 
     public List<Map<String, Object>> getPendingTopUpRequests() {
-        List<Map<String, Object>> requests = new ArrayList<>();
-        String query = "SELECT * FROM topup_requests WHERE status = 'PENDING' ORDER BY request_date DESC";
+        List<Map<String, Object>> reqList = new ArrayList<>();
+        String query = "SELECT * FROM topup_requests WHERE status = 'PENDING' ORDER BY request_date ASC";
 
         try (Connection con = dbHandler.getConnection();
              PreparedStatement ps = con.prepareStatement(query);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Map<String, Object> request = new HashMap<>();
-                request.put("requestID", rs.getInt("requestID"));
-                request.put("userID", rs.getInt("userID"));
-                request.put("amount", rs.getDouble("amount"));
-                request.put("status", rs.getString("status"));
-                request.put("request_date", rs.getTimestamp("request_date"));
-                requests.add(request);
+                Map<String, Object> reqTopup = new HashMap<>();
+                reqTopup.put("requestID", rs.getInt("requestID"));
+                reqTopup.put("userID", rs.getInt("userID"));
+                reqTopup.put("amount", rs.getDouble("amount"));
+                reqTopup.put("status", rs.getString("status"));
+                reqTopup.put("request_date", rs.getTimestamp("request_date"));
+                reqList.add(reqTopup);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return requests;
+        return reqList;
     }
 
     public boolean approveTopUpRequest(int requestID) {
