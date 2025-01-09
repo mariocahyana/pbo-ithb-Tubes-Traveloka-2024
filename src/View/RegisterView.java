@@ -86,7 +86,7 @@ public class RegisterView {
             String phone = phoneField.getText().trim();
 
             if (name.isEmpty() || password.isEmpty() || email.isEmpty() || phone.isEmpty()) {
-                AlertDesignTemplate.showErrorDialog(frame, "Error", "Isi Semua field yaa");
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Isi semua field yaa");
                 return;
             }
 
@@ -106,7 +106,7 @@ public class RegisterView {
 
             switch (result) {
                 case "SUCCESS":
-                    AlertDesignTemplate.showInfoDialog(frame, "Success", "Yey, regis berhasil :)");
+                    AlertDesignTemplate.showInfoDialog(frame, "Success", "Yeyyy, regis berhasil :)");
                     frame.dispose();
                     new MainMenu();
                     break;

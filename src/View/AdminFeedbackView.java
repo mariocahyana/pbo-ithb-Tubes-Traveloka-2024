@@ -153,7 +153,7 @@ public class AdminFeedbackView {
         JButton replyButton = createButton("Reply", 0, e -> showReplyDialog(feedback), true);
         buttonPanel.add(replyButton);
 
-        buttonPanel.setPreferredSize(new Dimension(100, 50));
+        buttonPanel.setPreferredSize(new Dimension(100, 45));
         panel.add(userInfoPanel, BorderLayout.NORTH);
         panel.add(feedbackText, BorderLayout.CENTER);
         panel.add(buttonPanel, BorderLayout.SOUTH);

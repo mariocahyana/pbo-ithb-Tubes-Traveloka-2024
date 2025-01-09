@@ -68,7 +68,7 @@ public class LoginView {
 
             User user = loginController.login(email, password);
             if (user != null) {
-                AlertDesignTemplate.showInfoDialog(frame, "Success", "Yeyy berhasil loginn !!! Hii, " + user.getNama());
+                AlertDesignTemplate.showInfoDialog(frame, "Success", "Yeyy berhasil loginn!!! Hii, " + user.getNama());
                 frame.dispose();
 
                 if (user.getStatus().toString().equalsIgnoreCase("ADMIN")) {
