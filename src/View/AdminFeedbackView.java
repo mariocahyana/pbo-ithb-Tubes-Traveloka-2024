@@ -153,7 +153,7 @@ public class AdminFeedbackView {
         JButton replyButton = createButton("Reply", 0, e -> showReplyDialog(feedback), true);
         buttonPanel.add(replyButton);
 
-        buttonPanel.setPreferredSize(new Dimension(100, 50));
+        buttonPanel.setPreferredSize(new Dimension(100, 45));
         panel.add(userInfoPanel, BorderLayout.NORTH);
         panel.add(feedbackText, BorderLayout.CENTER);
         panel.add(buttonPanel, BorderLayout.SOUTH);
@@ -191,24 +191,15 @@ public class AdminFeedbackView {
                 );
 
                 if (adminFeedbackController.isReplyAlreadyExists(reply.getReviewID(), reply.getUserID())) {
-                    JOptionPane.showMessageDialog(dialog,
-                        "A reply already exists for this review and user.",
-                        "Warning",
-                        JOptionPane.WARNING_MESSAGE);
+                    AlertDesignTemplate.showErrorDialog(frame, "Warning", "Sudah pernah mereply feedback ini :)");
                     return;
                 }
 
                 if (adminFeedbackController.replyToFeedback(reply)) {
-                    JOptionPane.showMessageDialog(dialog,
-                        "Reply sent successfully!",
-                        "Success",
-                        JOptionPane.INFORMATION_MESSAGE);
+                    AlertDesignTemplate.showInfoDialog(frame, "Success", "Yeyy, reply berhasil!");
                     dialog.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(dialog,
-                        "Failed to send reply.",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                    AlertDesignTemplate.showErrorDialog(frame, "Error", "Yahh, gagal ngereply :(");
                 }
             }
         }, true);

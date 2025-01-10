@@ -1,6 +1,6 @@
 package View;
 
-import Controller.TopUpController;
+import Controller.AdminForgotPasswordController;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
@@ -8,21 +8,20 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Map;
 
-public class AdminTopUpView {
+public class AdminForgotPasswordView {
     private JFrame frame;
-    private TopUpController topUpController;
+    private AdminForgotPasswordController passwordResetController;
     private Color primaryColor = new Color(0, 102, 204);
     private Color secondaryColor = new Color(102, 204, 255);
 
-    public AdminTopUpView() {
-        topUpController = new TopUpController();
+    public AdminForgotPasswordView() {
+        passwordResetController = new AdminForgotPasswordController();
         showPendingRequests();
     }
 
     public void showPendingRequests() {
-        frame = new JFrame("TOPUP REQUEST");
+        frame = new JFrame("PASSWORD RESET REQUESTS");
         frame.setSize(900, 700);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -34,16 +33,15 @@ public class AdminTopUpView {
         headerPanel.setOpaque(false);
         headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JLabel titleLabel = createStyledLabel("Customer Topup Request", 28);
+        JLabel titleLabel = createStyledLabel("Pending Password Reset Requests", 28);
         headerPanel.add(titleLabel, BorderLayout.CENTER);
 
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BorderLayout());
+        JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.setOpaque(false);
         contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
         DefaultTableModel model = new DefaultTableModel(
-            new String[]{"Request ID", "User ID", "Amount", "Date"}, 0
+            new String[]{"Reset ID", "User Name", "Email", "Requested Date"}, 0
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -59,14 +57,11 @@ public class AdminTopUpView {
         table.getTableHeader().setForeground(Color.WHITE);
         table.setSelectionBackground(new Color(51, 204, 255, 100));
         table.setGridColor(new Color(230, 230, 230));
-        
-        List<Map<String, Object>> requests = topUpController.getPendingTopUpRequests();
-        for (Map<String, Object> request : requests) {
+
+        List<String[]> pendingRequests = passwordResetController.getPendingRequest();
+        for (String[] request : pendingRequests) {
             model.addRow(new Object[]{
-                request.get("requestID"),
-                request.get("userID"),
-                request.get("amount"),
-                request.get("request_date")
+                request[0], request[1], request[2], request[3]
             });
         }
 
@@ -84,27 +79,27 @@ public class AdminTopUpView {
         JButton approveButton = createButton("APPROVE", e -> {
             int selectedRow = table.getSelectedRow();
             if (selectedRow != -1) {
-                int requestID = (int) table.getValueAt(selectedRow, 0);
-                handleTopUpAction(requestID, true, selectedRow, model);
+                int resetID = Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
+                handleResetAction(resetID, true, selectedRow, model);
             } else {
-                showWarningMessage("Pilih dulu ya, mana yang mau di approve :)");
+                showWarningMessage("Pilih permintaan yang ingin di approve :)");
             }
-        }, true);
+        });
 
         JButton rejectButton = createButton("REJECT", e -> {
             int selectedRow = table.getSelectedRow();
             if (selectedRow != -1) {
-                int requestID = (int) table.getValueAt(selectedRow, 0);
-                handleTopUpAction(requestID, false, selectedRow, model);
+                int resetID = Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
+                handleResetAction(resetID, false, selectedRow, model);
             } else {
-                showWarningMessage("Pilih dulu ya, mana yang mau di reject :)");
+                showWarningMessage("Pilih permintaan yang ingin di reject :)");
             }
-        }, true);
+        });
 
         JButton backButton = createButton("BACK", e -> {
             frame.dispose();
             new AdminMenu();
-        }, true);
+        });
 
         buttonPanel.add(approveButton);
         buttonPanel.add(rejectButton);
@@ -139,18 +134,14 @@ public class AdminTopUpView {
         return label;
     }
 
-    private JButton createButton(String text, ActionListener action, boolean isRounded) {
+    private JButton createButton(String text, ActionListener action) {
         JButton button = new JButton(text) {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
                 GradientPaint gp = new GradientPaint(0, 0, new Color(0, 153, 204), 0, getHeight(), new Color(51, 204, 255));
                 g2d.setPaint(gp);
-                if (isRounded) {
-                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);
-                } else {
-                    g2d.fillRect(0, 0, getWidth(), getHeight());
-                }
+                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);
                 super.paintComponent(g);
             }
         };
@@ -174,47 +165,31 @@ public class AdminTopUpView {
                 this.thumbColor = new Color(255, 255, 255, 100);
                 this.trackColor = new Color(0, 0, 0, 0);
             }
-
-            @Override
-            protected JButton createDecreaseButton(int orientation) {
-                return createZeroButton();
-            }
-
-            @Override
-            protected JButton createIncreaseButton(int orientation) {
-                return createZeroButton();
-            }
-
-            private JButton createZeroButton() {
-                JButton button = new JButton();
-                button.setPreferredSize(new Dimension(0, 0));
-                return button;
-            }
         };
     }
 
-    private void handleTopUpAction(int requestID, boolean isApprove, int selectedRow, DefaultTableModel model) {
-        boolean success = isApprove ? 
-            topUpController.approveTopUpRequest(requestID) : 
-            topUpController.rejectTopUpRequest(requestID);
+    private void handleResetAction(int resetID, boolean isApprove, int selectedRow, DefaultTableModel model) {
+        boolean success = isApprove ?
+            passwordResetController.approveRequest(resetID) :
+            passwordResetController.rejectRequest(resetID);
 
         if (success) {
-            showSuccessMessage(isApprove ? "Yeyy, berhasil approve!" : "Yeyy, berhasil nge reject!");
+            showSuccessMessage(isApprove ? "Berhasil di-approve!" : "Berhasil di-reject!");
             model.removeRow(selectedRow);
         } else {
-            showErrorMessage(isApprove ? "Yahhh gagal approve :(" : "Yahhh gagal nge reject");
+            showErrorMessage(isApprove ? "Gagal approve :(" : "Gagal reject :(");
         }
     }
 
     private void showSuccessMessage(String message) {
         AlertDesignTemplate.showInfoDialog(frame, "Success", message);
     }
-    
+
     private void showErrorMessage(String message) {
-        AlertDesignTemplate.showErrorDialog(frame, "Error", message);
+        AlertDesignTemplate.showInfoDialog(frame, "Error", message);
     }
-    
+
     private void showWarningMessage(String message) {
-        AlertDesignTemplate.showErrorDialog(frame, "Warning", message);
+        AlertDesignTemplate.showInfoDialog(frame, "Warning", message);
     }
 }

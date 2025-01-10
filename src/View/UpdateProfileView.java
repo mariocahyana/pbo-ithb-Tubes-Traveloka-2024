@@ -79,27 +79,27 @@ public class UpdateProfileView {
             String email = emailField.getText().trim();
             String phone = phoneField.getText().trim();
 
+            AlertDesignTemplate.showErrorDialog(frame, "Error", "Isi semua field nya yaa");
             if (name.isEmpty() || email.isEmpty() || phone.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "All fields must be filled.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-                JOptionPane.showMessageDialog(frame, "Invalid email format. Example mario@microsoft :>", "Error", JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "format emailnya ni => mario@microsoft");
                 return;
             }
 
             if (!phone.matches("\\d+")) {
-                JOptionPane.showMessageDialog(frame, "Phone number must numeric.", "Error", JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Nomer telp harus angka ya");
                 return;
             }
 
             if (updateProfileController.updateProfile(name, email, phone)) {
-                JOptionPane.showMessageDialog(frame, "Update Profile Success!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                AlertDesignTemplate.showInfoDialog(frame, "Success", "Yeyy, update profil berhasil!");
                 frame.dispose();
                 new CustomerMenu();
             } else {
-                JOptionPane.showMessageDialog(frame, "Failed to update profile. Try again :>.", "Error", JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Yahh, gagal update profilmu, coba lagi aja :)");
             }
         });
         gradientPanel.add(updateButton);
