@@ -18,7 +18,7 @@ public class RegisterView {
 
     public void showRegisterForm() {
         frame = new JFrame("Register");
-        frame.setSize(450, 350);
+        frame.setSize(420, 350);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 

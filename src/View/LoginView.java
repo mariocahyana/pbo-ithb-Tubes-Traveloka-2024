@@ -17,7 +17,7 @@ public class LoginView {
 
     public void showLoginForm() {
         frame = new JFrame("Login");
-        frame.setSize(400, 350);
+        frame.setSize(400, 300);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -55,8 +55,21 @@ public class LoginView {
         passwordField.setBounds(150, 100, 200, 25);
         gradientPanel.add(passwordField);
 
+        JButton forgotPasswordButton = new JButton("Forgot Password?");
+        forgotPasswordButton.setBounds(220, 130, 140, 40);
+        forgotPasswordButton.setBorderPainted(false);
+        forgotPasswordButton.setFocusPainted(false);
+        forgotPasswordButton.setContentAreaFilled(false);
+        forgotPasswordButton.setOpaque(false);
+        forgotPasswordButton.setForeground(Color.WHITE);
+        forgotPasswordButton.addActionListener(e -> {
+            frame.dispose();
+            new ForgotPasswordView();
+        });
+        gradientPanel.add(forgotPasswordButton);
+
         JButton loginButton = createGradientButton("Login", new Color(0, 153, 204), new Color(51, 204, 255));
-        loginButton.setBounds(50, 200, 140, 40);
+        loginButton.setBounds(50, 180, 140, 40);
         loginButton.addActionListener(e -> {
             String email = emailField.getText().trim();
             String password = new String(passwordField.getPassword()).trim();
@@ -83,7 +96,7 @@ public class LoginView {
         gradientPanel.add(loginButton);
 
         JButton backButton = createGradientButton("Back", new Color(0, 153, 204), new Color(51, 204, 255));
-        backButton.setBounds(210, 200, 140, 40);
+        backButton.setBounds(210, 180, 140, 40);
         backButton.addActionListener(e -> {
             frame.dispose();
             new MainMenu();

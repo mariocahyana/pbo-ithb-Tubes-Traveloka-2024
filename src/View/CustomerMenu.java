@@ -47,12 +47,12 @@ public class CustomerMenu {
         welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         gradientPanel.add(welcomeLabel);
 
-        int xLeft = 150; // klom kiri
-        int xRight = 410; // klom kanan
+        int xLeft = 150;
+        int xRight = 410;
         int yStart = 100;
         int buttonWidth = 240;
         int buttonHeight = 50;
-        int ySelisih = 60; // jarak antar tombol
+        int ySelisih = 60; 
 
         JButton writeReviewButton = createButton("Write a Review", new Color(0, 153, 204), new Color(51, 204, 255));
         writeReviewButton.setBounds(xLeft, yStart, buttonWidth, buttonHeight);
