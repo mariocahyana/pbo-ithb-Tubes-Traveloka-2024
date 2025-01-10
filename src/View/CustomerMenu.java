@@ -106,7 +106,7 @@ public class CustomerMenu {
         viewActiveTicketButton.setBounds(xLeft, yStart + 6 * ySelisih, buttonWidth, buttonHeight);
         viewActiveTicketButton.addActionListener(e -> {
             frame.dispose();
-            // new viewActiveTicketView();
+            new ViewActiveTicket();
         });
         gradientPanel.add(viewActiveTicketButton);
 
@@ -122,7 +122,7 @@ public class CustomerMenu {
         bookTicketButton.setBounds(xRight, yStart + ySelisih, buttonWidth, buttonHeight);
         bookTicketButton.addActionListener(e -> {
             frame.dispose();
-            // new BookTicketView();
+            new ViewFlight(null);
         });
         gradientPanel.add(bookTicketButton);
 
@@ -138,7 +138,7 @@ public class CustomerMenu {
         searchFlightButton.setBounds(xRight, yStart + 3 * ySelisih, buttonWidth, buttonHeight);
         searchFlightButton.addActionListener(e -> {
             frame.dispose();
-            // new SearchFlightView();
+            new SearchFlight();
         });
         gradientPanel.add(searchFlightButton);
 
@@ -146,7 +146,7 @@ public class CustomerMenu {
         viewPurchaseHistoryButton.setBounds(xRight, yStart + 4 * ySelisih, buttonWidth, buttonHeight);
         viewPurchaseHistoryButton.addActionListener(e -> {
             frame.dispose();
-            // new ViewPurchaseHistoryView();
+            new ViewPurchaseHistory();
         });
         gradientPanel.add(viewPurchaseHistoryButton);
 

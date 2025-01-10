@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseHandler {
     private Connection con;
     private final String driver = "com.mysql.cj.jdbc.Driver";
-    private final String url = "jdbc:mysql://localhost:3312/tubespbo3";
+    private final String url = "jdbc:mysql://localhost/sqljopol";
     private final String username = "root";
     private final String password = "";
 
