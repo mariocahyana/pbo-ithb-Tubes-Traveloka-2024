@@ -152,8 +152,8 @@ public class CustomerMenu {
         JButton rescheduleButton = createButton("Reschedule", new Color(0, 153, 204), new Color(51, 204, 255));
         rescheduleButton.setBounds(xRight, yStart + 5 * ySelisih, buttonWidth, buttonHeight);
         rescheduleButton.addActionListener(e -> {
-            // frame.dispose();
-            // new
+            frame.dispose();
+            new Reschedule();
         });
         gradientPanel.add(rescheduleButton);
 

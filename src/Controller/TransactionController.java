@@ -1,9 +1,5 @@
 package Controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +20,6 @@ public class TransactionController {
                        "date_transaksi, age, payment_confirmation, active_ticket) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = dbHandler.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-
             stmt.setInt(1, transaksi.getUser().getUserID());
             stmt.setDouble(2, transaksi.getPrice());
             stmt.setInt(3, transaksi.getFlight().getFlightID());
@@ -41,6 +36,42 @@ public class TransactionController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public int createReturnedTransaction(Transaksi transaksi) {
+        String query = "INSERT INTO transaksi (userID, price_transaction, flightID, nik, seat_number, name, " +
+                       "date_transaksi, age, payment_confirmation, active_ticket) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = dbHandler.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, transaksi.getUser().getUserID());
+            stmt.setDouble(2, transaksi.getPrice());
+            stmt.setInt(3, transaksi.getFlight().getFlightID());
+            stmt.setInt(4, transaksi.getNik());
+            stmt.setInt(5, Integer.parseInt(transaksi.getSeat()));
+            stmt.setString(6, transaksi.getName());
+            stmt.setDate(7, java.sql.Date.valueOf(transaksi.getDate_transaksi()));
+            stmt.setString(8, transaksi.getAge().toString());
+            stmt.setString(9, transaksi.getStatus().toString());
+            stmt.setString(10, transaksi.getTicket().toString());
+                
+            stmt.executeUpdate();
+            String query2 = "SELECT transaksiID FROM transaksi WHERE userID = ? AND active_ticket = ?";
+            try (Connection conn2 = dbHandler.getConnection();
+             PreparedStatement stmt2 = conn2.prepareStatement(query2)) {
+
+            stmt2.setInt(1, transaksi.getUser().getUserID());
+            stmt2.setString(2, transaksi.getStatus().toString());
+            ResultSet rs = stmt2.executeQuery();
+
+            while (rs.next()) {
+                return(rs.getInt("transaksiID"));
+            }
+                System.out.println("Transaction created successfully!");
+            }
+            return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     // Read All Transactions

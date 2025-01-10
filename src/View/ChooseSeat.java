@@ -109,8 +109,6 @@ public class ChooseSeat {
                     if (response == JOptionPane.YES_OPTION) {
                         frame.setVisible(false);
                         new OrderTransaction(flight, airplane, button.getText());
-                        
-                    
                     }
                 }
             });

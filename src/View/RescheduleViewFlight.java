@@ -10,15 +10,16 @@ import Model.Model_class.Airplane;
 import java.awt.*;
 import java.util.List;
 
-public class ViewFlight {
-    public ViewFlight(List<Flight> flightt) {
-        flight = flightt;
-        initViewFlight();
+public class RescheduleViewFlight {
+    public RescheduleViewFlight(int idd) {
+        initRescheduleViewFlight();
+        id = idd;
     }
+    private int id ;
 
     private List<Flight> flight;
     JFrame frame;
-    public void initViewFlight() {
+    public void initRescheduleViewFlight() {
         FlightController fC = new FlightController();
 
         JPanel gradientPanel = new JPanel() {
@@ -63,11 +64,8 @@ public class ViewFlight {
         flightPanel.setLayout(null);
         flightPanel.setLayout(new BoxLayout(flightPanel, BoxLayout.Y_AXIS));
 
-        if (flight == null) {
-             flight = fC.getFlightData();
-        }else{
-            
-        }
+        flight = fC.getFlightData();    
+        
         for (Flight flight : flight) {
             JPanel flightCard = createFlightCard(flight);
             flightPanel.add(flightCard, BorderLayout.CENTER);
@@ -88,7 +86,7 @@ public class ViewFlight {
         
         searchButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(frame, "Search button clicked.");
-            new SearchFlight();
+            new Reschedule();
         });
 
         bottomPanel.add(backButton);
@@ -165,7 +163,7 @@ public class ViewFlight {
                 if (response == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(null, "Lanjut Memilih Kursi");
                     frame.setVisible(false);
-                    new ChooseSeat(flight,airplane);
+                    new RescheduleChooseSeat(id,flight,airplane);
                     
                 } else if (response == JOptionPane.NO_OPTION) {
                     JOptionPane.showMessageDialog(null, "You selected 'No'. Cancelling the flight.");
