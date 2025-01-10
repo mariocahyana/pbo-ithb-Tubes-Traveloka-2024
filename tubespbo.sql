@@ -101,7 +101,8 @@ INSERT INTO `flight` (`flightID`, `flight_name`, `airplaneID`, `airplane_name`, 
 
 CREATE TABLE `reply` (
   `reviewID` int(11) NOT NULL,
-  `userID` int(11) NOT NULL
+  `userID` int(11) NOT NULL,
+  `reply_admin` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -129,6 +130,18 @@ CREATE TABLE `review` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
+
+--
+-- Table structure for table `topup_requests`
+--
+
+CREATE TABLE `topup_requests` (
+  `requestID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `amount` double NOT NULL,
+  `status` enum('PENDING','APPROVED','REJECTED') DEFAULT 'PENDING',
+  `request_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Table structure for table `transaksi`
@@ -227,6 +240,13 @@ ALTER TABLE `review`
   ADD KEY `userID` (`userID`);
 
 --
+-- Indexes for table `topup_requests`
+--
+ALTER TABLE `topup_requests`
+  ADD PRIMARY KEY (`requestID`),
+  ADD KEY `userID` (`userID`);
+
+--
 -- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
@@ -237,7 +257,9 @@ ALTER TABLE `transaksi`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`userID`);
+  ADD PRIMARY KEY (`userID`),
+  ADD UNIQUE KEY `unique_email` (`email`),
+  ADD UNIQUE KEY `unique_phone_num` (`phone_num`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -280,6 +302,12 @@ ALTER TABLE `review`
   MODIFY `reviewID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `topup_requests`
+--
+ALTER TABLE `topup_requests`
+  MODIFY `requestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
@@ -313,8 +341,8 @@ ALTER TABLE `flight`
 -- Constraints for table `reply`
 --
 ALTER TABLE `reply`
-  ADD CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`reviewID`) REFERENCES `review` (`reviewID`),
-  ADD CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
+  ADD CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`reviewID`) REFERENCES `review` (`reviewID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `reschedule_request`
@@ -328,6 +356,12 @@ ALTER TABLE `reschedule_request`
 --
 ALTER TABLE `review`
   ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
+
+--
+-- Constraints for table `topup_requests`
+--
+ALTER TABLE `topup_requests`
+  ADD CONSTRAINT `topup_requests_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
 
 --
 -- Constraints for table `transaksi`

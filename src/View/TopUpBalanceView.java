@@ -56,20 +56,24 @@ public class TopUpBalanceView {
         submitButton.addActionListener(e -> {
             String amountText = amountField.getText().trim();
             if (amountText.isEmpty() || !amountText.matches("\\d+")) {
-                JOptionPane.showMessageDialog(frame, "Please enter a valid amount.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Masukkin nomimal yang bener yaa.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             double amount = Double.parseDouble(amountText);
 
-            if (topUpController.topUpBalance(amount)) {
-                JOptionPane.showMessageDialog(frame, "Top Up Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            if (topUpController.createTopUpRequest(amount)) {
+                JOptionPane.showMessageDialog(frame, "Topup request berhasil dibuat, tolong sabar menunggu ya :).",
+                        "Success", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
-                new ViewBalanceView();
+                new CustomerMenu();
             } else {
-                JOptionPane.showMessageDialog(frame, "Failed to Top Up. Try Again.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Topup request gagal. Boleh coba lagi aja :).", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
+
         gradientPanel.add(submitButton);
 
         JButton backButton = createButton("Back", new Color(0, 153, 204), new Color(51, 204, 255));

@@ -1,6 +1,9 @@
 package View;
 
 import javax.swing.*;
+
+import Controller.LoginController;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -34,7 +37,7 @@ public class AdminMenu {
 
     public void showMainMenu(){
         frame = new JFrame("HOME ADMIN");
-        frame.setSize(600, 350);
+        frame.setSize(600, 430);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     
@@ -84,12 +87,18 @@ public class AdminMenu {
 
         JButton customerReview = createGradientButton("CUSTOMER REVIEW", 310, 170, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
             frame.dispose();
-            new AdminMenu();
+            new AdminFeedbackView();
         });
 
-        JButton exit = createGradientButton("LOG OUT", 310, 240, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
+        JButton confirmTopup = createGradientButton("CONFIRM TOPUP", 310, 240, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
             frame.dispose();
-            new LoginView();
+            new AdminTopUpView();
+        });
+
+        JButton exit = createGradientButton("LOG OUT", 310, 310, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
+            LoginController.getInstance().logout();
+            frame.dispose();
+            new MainMenu();
         });
 
         gradientPanel.add(customerTransaction);
@@ -99,6 +108,7 @@ public class AdminMenu {
         gradientPanel.add(airportData);
         gradientPanel.add(reschedule);
         gradientPanel.add(customerReview);
+        gradientPanel.add(confirmTopup);
         gradientPanel.add(exit);
 
         frame.add(gradientPanel);

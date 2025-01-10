@@ -97,7 +97,7 @@ public class CustomerMenu {
         changePasswordButton.setBounds(xLeft, yStart + 5 * ySelisih, buttonWidth, buttonHeight);
         changePasswordButton.addActionListener(e -> {
             frame.dispose();
-            new UpdateProfileView();
+            new ChangePasswordView();
         });
         gradientPanel.add(changePasswordButton);
 
