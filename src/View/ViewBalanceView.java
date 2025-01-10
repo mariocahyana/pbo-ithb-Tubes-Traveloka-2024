@@ -1,16 +1,23 @@
 package View;
 
+import Controller.LoginController;
 import Controller.TopUpController;
+import Model.Model_class.User;
+import Model.Model_interface.Observer;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ViewBalanceView {
+public class ViewBalanceView implements Observer {
     private JFrame frame;
     private TopUpController topUpController;
+    private JLabel balanceLabel;
+    private User user;
 
     public ViewBalanceView() {
         topUpController = new TopUpController();
+        user = LoginController.getInstance().getLoggedInUser();
+        user.addObserver(this);
         showBalance();
     }
 
@@ -41,9 +48,7 @@ public class ViewBalanceView {
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         gradientPanel.add(titleLabel);
 
-        double balance = topUpController.getBalance();
-
-        JLabel balanceLabel = new JLabel("Balance: Rp" + balance);
+        balanceLabel = new JLabel("Balance: Rp" + topUpController.getBalance());
         balanceLabel.setBounds(50, 100, 300, 25);
         balanceLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
         balanceLabel.setForeground(Color.WHITE);
@@ -78,5 +83,10 @@ public class ViewBalanceView {
         button.setFocusPainted(false);
         button.setContentAreaFilled(false);
         return button;
+    }
+
+    @Override
+    public void update(double newBalance) {
+        balanceLabel.setText("Balance: Rp" + newBalance);
     }
 }

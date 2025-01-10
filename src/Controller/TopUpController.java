@@ -87,8 +87,11 @@ public class TopUpController {
             ps1.setInt(1, requestID);
             ps2.setInt(1, requestID);
 
-            if (ps1.executeUpdate() > 0) {
-                return ps2.executeUpdate() > 0;
+            if (ps1.executeUpdate() > 0 && ps2.executeUpdate() > 0) {
+                User user = LoginController.getInstance().getLoggedInUser();
+                double newBalance = getBalance();
+                user.setBalance(newBalance);
+                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();

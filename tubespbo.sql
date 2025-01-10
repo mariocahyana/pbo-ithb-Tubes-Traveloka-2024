@@ -96,6 +96,18 @@ INSERT INTO `flight` (`flightID`, `flight_name`, `airplaneID`, `airplane_name`, 
 (1, 'BDG-JKT-BNS', 1, 'GRD-001', 1, 2, 12, 'BANDUNG', 'JAKARTA', '2025-01-10', '2025-01-10', 'BUSINESS', 350);
 
 --
+-- Table structure for table `password_reset`
+--
+
+CREATE TABLE `password_reset` (
+  `resetID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `newPassword` varchar(255) NOT NULL,
+  `status` enum('PENDING','APPROVED','REJECTED') DEFAULT 'PENDING',
+  `request_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
 -- Table structure for table `reply`
 --
 
@@ -219,6 +231,13 @@ ALTER TABLE `flight`
   ADD UNIQUE KEY `unique_flight_name` (`flight_name`);
 
 --
+-- Indexes for table `password_reset`
+--
+ALTER TABLE `password_reset`
+  ADD PRIMARY KEY (`resetID`),
+  ADD KEY `userID` (`userID`);
+
+--
 -- Indexes for table `reply`
 --
 ALTER TABLE `reply`
@@ -290,6 +309,12 @@ ALTER TABLE `flight`
   MODIFY `flightID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `password_reset`
+--
+ALTER TABLE `password_reset`
+  MODIFY `resetID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `reply`
 --
 ALTER TABLE `reply`
@@ -336,6 +361,12 @@ ALTER TABLE `flight`
   ADD CONSTRAINT `flight_ibfk_1` FOREIGN KEY (`airplaneID`) REFERENCES `airplane` (`airplaneID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `flight_ibfk_2` FOREIGN KEY (`origin`) REFERENCES `airport` (`airportID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `flight_ibfk_3` FOREIGN KEY (`destination`) REFERENCES `airport` (`airportID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `password_reset`
+--
+ALTER TABLE `password_reset`
+  ADD CONSTRAINT `password_reset_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
 
 --
 -- Constraints for table `reply`

@@ -2,21 +2,24 @@ package Model.Model_class;
 
 import Model.Model_enum.StatusUser;
 import Model.Model_interface.FlightService;
+import Model.Model_interface.Observer;
+import java.util.ArrayList;
+import java.util.List;
 
-public class User implements FlightService{
+public class User implements FlightService {
     private int userID;
     private String nama;
     private String password;
     private String email;
     private String noTelp;
-    private double balance; // Tipe data diubah menjadi double
+    private double balance;
     private StatusUser status;
+    private List<Observer> observers = new ArrayList<>();
 
     public User() {
     }
 
-    public User(int userID, String nama, String password, String email, String noTelp, double balance,
-            StatusUser status) {
+    public User(int userID, String nama, String password, String email, String noTelp, double balance, StatusUser status) {
         this.userID = userID;
         this.nama = nama;
         this.password = password;
@@ -72,6 +75,7 @@ public class User implements FlightService{
 
     public void setBalance(double balance) {
         this.balance = balance;
+        notifyObservers();
     }
 
     public StatusUser getStatus() {
@@ -81,21 +85,41 @@ public class User implements FlightService{
     public void setStatus(StatusUser status) {
         this.status = status;
     }
-    
+
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update(balance);
+        }
+    }
+
+    public void topUp(double amount) {
+        if (amount > 0) {
+            this.balance += amount;
+            notifyObservers();
+        }
+    }
+
     @Override
     public void searchFlights() {
-        
     }
+
     @Override
     public void bookFlights() {
-
     }
+
     @Override
     public void chooseSeat() {
-
     }
+
     @Override
     public void rescheduleTicket() {
-
     }
 }
