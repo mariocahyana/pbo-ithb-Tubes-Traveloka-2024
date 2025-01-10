@@ -1,8 +1,8 @@
 package View;
 
 import Controller.ViewReviewsController;
-
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class ViewReviewsView {
 
     public void showReviews() {
         frame = new JFrame("View Reviews");
-        frame.setSize(600, 500);
+        frame.setSize(600, 530);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -42,24 +42,35 @@ public class ViewReviewsView {
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         gradientPanel.add(titleLabel);
 
-        JTextArea reviewsArea = new JTextArea();
-        reviewsArea.setEditable(false);
-
-        JScrollPane scrollPane = new JScrollPane(reviewsArea);
-        scrollPane.setBounds(50, 100, 500, 200);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        gradientPanel.add(scrollPane);
+        JPanel reviewsContainer = new JPanel();
+        reviewsContainer.setLayout(new BoxLayout(reviewsContainer, BoxLayout.Y_AXIS));
+        reviewsContainer.setOpaque(false);
 
         List<String> reviews = viewReviewsController.getAllReviews();
         if (reviews.isEmpty()) {
-            reviewsArea.setText("No reviews available.");
+            JLabel emptyLabel = new JLabel("Belum ada review yang tersedia :(");
+            emptyLabel.setForeground(Color.WHITE);
+            emptyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            reviewsContainer.add(emptyLabel);
         } else {
-            reviewsArea.setText(String.join("\n", reviews));
+            for (String review : reviews) {
+                reviewsContainer.add(createMessagePanel(review));
+                reviewsContainer.add(Box.createVerticalStrut(10));
+            }
         }
 
-        JButton backButton = createButton("Back", new Color(0, 153, 204), new Color(51, 204, 255));
-        backButton.setBounds(180, 320, 240, 50);
+        JScrollPane scrollPane = new JScrollPane(reviewsContainer);
+        scrollPane.setBounds(50, 100, 500, 300);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(8);
+        gradientPanel.add(scrollPane);
+
+        JButton backButton = createButton("BACK", new Color(0, 153, 204), new Color(51, 204, 255));
+        backButton.setBounds(180, 420, 240, 50);
         backButton.addActionListener(e -> {
             frame.dispose();
             new CustomerMenu();
@@ -68,6 +79,52 @@ public class ViewReviewsView {
 
         frame.add(gradientPanel);
         frame.setVisible(true);
+    }
+
+    private JPanel createMessagePanel(String message) {
+        JPanel messagePanel = new JPanel();
+        messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
+        messagePanel.setMaximumSize(new Dimension(480, 150));
+        messagePanel.setBackground(Color.WHITE);
+        messagePanel.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(new Color(224, 224, 224), 1, true),
+            BorderFactory.createEmptyBorder(10, 15, 10, 15)
+        ));
+
+        String[] parts = message.split("\n  Admin:");
+        String customerPart = parts[0];
+        String adminReply = parts.length > 1 ? parts[1].trim() : null;
+
+        String customerName = customerPart.split(":")[0];
+        String customerReview = customerPart.split(":", 2)[1].trim();
+
+        JLabel nameLabel = new JLabel(customerName);
+        nameLabel.setFont(new Font("SansSerif", Font.BOLD, 13));
+        nameLabel.setForeground(new Color(33, 33, 33));
+
+        JLabel reviewLabel = new JLabel("<html><p style='width:400px;'>" + customerReview + "</p></html>");
+        reviewLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        reviewLabel.setForeground(Color.DARK_GRAY);
+
+        messagePanel.add(nameLabel);
+        messagePanel.add(Box.createVerticalStrut(5));
+        messagePanel.add(reviewLabel);
+
+        if (adminReply != null && !adminReply.equals("(Belum ada balasan dari admin, sabar ya adminnya lagi healing)")) {
+            JLabel adminLabel = new JLabel("Balasan Admin:");
+            adminLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
+            adminLabel.setForeground(new Color(51, 153, 255));
+
+            JLabel replyLabel = new JLabel("<html><p style='width:400px;'>" + adminReply.replaceAll("\n", "<br>") + "</p></html>");
+            replyLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
+            replyLabel.setForeground(new Color(51, 153, 255));
+
+            messagePanel.add(Box.createVerticalStrut(8));
+            messagePanel.add(adminLabel);
+            messagePanel.add(replyLabel);
+        }
+
+        return messagePanel;
     }
 
     private JButton createButton(String text, Color color1, Color color2) {

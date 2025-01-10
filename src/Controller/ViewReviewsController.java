@@ -35,9 +35,9 @@ public class ViewReviewsController {
                 reviewDetails.append(customerName).append(": ").append(customerReview);
 
                 if (adminReply != null && !adminReply.isEmpty()) {
-                    reviewDetails.append("\n  Balasan Admin: ").append(adminReply);
+                    reviewDetails.append("\n  Admin: ").append(adminReply);
                 } else {
-                    reviewDetails.append("\n  (Belum ada balasan dari admin)");
+                    reviewDetails.append("\n  (Belum ada balasan dari admin, sabar ya adminnya lagi healing)");
                 }
                 reviews.add(reviewDetails.toString());
             }
