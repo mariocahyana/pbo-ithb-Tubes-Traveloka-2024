@@ -118,14 +118,19 @@ CREATE TABLE `reply` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `reschedule_request`
 --
 
 CREATE TABLE `reschedule_request` (
-  `transaksiID` int(11) NOT NULL,
-  `userID` int(11) NOT NULL
+  `requestID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `old_transaksiID` int(11) NOT NULL,
+  `new_transaksiID` int(11) DEFAULT NULL,
+  `reason` varchar(255) NOT NULL,
+  `status` enum('PENDING','APPROVED','REJECTED') DEFAULT 'PENDING',
+  `request_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `process_date` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -244,12 +249,15 @@ ALTER TABLE `reply`
   ADD PRIMARY KEY (`reviewID`,`userID`),
   ADD KEY `userID` (`userID`);
 
+
 --
 -- Indexes for table `reschedule_request`
 --
 ALTER TABLE `reschedule_request`
-  ADD PRIMARY KEY (`transaksiID`,`userID`),
-  ADD KEY `userID` (`userID`);
+  ADD PRIMARY KEY (`requestID`),
+  ADD KEY `userID` (`userID`),
+  ADD KEY `old_transaksiID` (`old_transaksiID`),
+  ADD KEY `new_transaksiID` (`new_transaksiID`);
 
 --
 -- Indexes for table `review`
@@ -321,6 +329,12 @@ ALTER TABLE `reply`
   MODIFY `reviewID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `reschedule_request`
+--
+ALTER TABLE `reschedule_request`
+  MODIFY `requestID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
@@ -375,12 +389,14 @@ ALTER TABLE `reply`
   ADD CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`reviewID`) REFERENCES `review` (`reviewID`) ON DELETE CASCADE,
   ADD CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE;
 
+
 --
 -- Constraints for table `reschedule_request`
 --
 ALTER TABLE `reschedule_request`
-  ADD CONSTRAINT `reschedule_request_ibfk_1` FOREIGN KEY (`transaksiID`) REFERENCES `transaksi` (`transaksiID`),
-  ADD CONSTRAINT `reschedule_request_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
+  ADD CONSTRAINT `reschedule_request_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reschedule_request_ibfk_2` FOREIGN KEY (`old_transaksiID`) REFERENCES `transaksi` (`transaksiID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reschedule_request_ibfk_3` FOREIGN KEY (`new_transaksiID`) REFERENCES `transaksi` (`transaksiID`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `review`

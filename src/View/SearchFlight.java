@@ -85,7 +85,7 @@ public class SearchFlight {
         backButton.setBounds(210, 250, 140, 40);
         backButton.addActionListener(e -> {
             frame.dispose();
-            new MainMenu();
+            new CustomerMenu();
         });
         gradientPanel.add(backButton);
 

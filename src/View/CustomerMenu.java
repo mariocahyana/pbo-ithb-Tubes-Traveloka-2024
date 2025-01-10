@@ -154,7 +154,7 @@ public class CustomerMenu {
         rescheduleButton.setBounds(xRight, yStart + 5 * ySelisih, buttonWidth, buttonHeight);
         rescheduleButton.addActionListener(e -> {
             frame.dispose();
-            new Reschedule();
+            new RescheduleView();
         });
         gradientPanel.add(rescheduleButton);
 

@@ -87,7 +87,7 @@ public class AdminMenu {
 
         JButton reschedule = createGradientButton("RESCHEDULE", 310, 100, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
             frame.dispose();
-            new AdminMenu();
+            new AdminRescheduleView();
         });
 
         JButton customerReview = createGradientButton("CUSTOMER REVIEW", 310, 170, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
