@@ -56,21 +56,18 @@ public class TopUpBalanceView {
         submitButton.addActionListener(e -> {
             String amountText = amountField.getText().trim();
             if (amountText.isEmpty() || !amountText.matches("\\d+")) {
-                JOptionPane.showMessageDialog(frame, "Masukkin nomimal yang bener yaa.", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Masukkin nomimal yang bener yaa");
                 return;
             }
 
             double amount = Double.parseDouble(amountText);
 
             if (topUpController.createTopUpRequest(amount)) {
-                JOptionPane.showMessageDialog(frame, "Topup request berhasil dibuat, tolong sabar menunggu ya :).",
-                        "Success", JOptionPane.INFORMATION_MESSAGE);
+                AlertDesignTemplate.showInfoDialog(frame, "Success", "Topup request berhasil dibuat, tolong sabar menunggu ya :)");
                 frame.dispose();
                 new CustomerMenu();
             } else {
-                JOptionPane.showMessageDialog(frame, "Topup request gagal. Boleh coba lagi aja :).", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Topup request gagal. Boleh coba lagi aja :)");
             }
         });
 

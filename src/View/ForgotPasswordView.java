@@ -1,22 +1,14 @@
 package View;
 
-import Controller.ChangePasswordController;
+import Controller.ForgotPasswordController;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ChangePasswordView {
-    private JFrame frame;
-    private ChangePasswordController changePasswordController;
-
-    public ChangePasswordView() {
-        changePasswordController = new ChangePasswordController();
-        showChangePasswordForm();
-    }
-
-    public void showChangePasswordForm() {
-        frame = new JFrame("Change Password");
-        frame.setSize(460, 400);
+public class ForgotPasswordView {
+    public ForgotPasswordView() {
+        JFrame frame = new JFrame("Forgot Password");
+        frame.setSize(460, 330);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -34,75 +26,76 @@ public class ChangePasswordView {
         };
         gradientPanel.setLayout(null);
 
-        JLabel titleLabel = new JLabel("Change Password");
-        titleLabel.setBounds(30, 20, 400, 50);
-        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+        JLabel titleLabel = new JLabel("Forgot Password");
+        titleLabel.setBounds(25, 20, 400, 40);
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         gradientPanel.add(titleLabel);
 
-        JLabel oldPasswordLabel = new JLabel("Old Password:");
-        oldPasswordLabel.setBounds(50, 100, 210, 25);
-        oldPasswordLabel.setForeground(Color.WHITE);
-        oldPasswordLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
-        gradientPanel.add(oldPasswordLabel);
+        JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setBounds(50, 80, 100, 25);
+        emailLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        emailLabel.setForeground(Color.WHITE);
+        gradientPanel.add(emailLabel);
 
-        JPasswordField oldPasswordField = new JPasswordField();
-        oldPasswordField.setBounds(190, 100, 200, 25);
-        gradientPanel.add(oldPasswordField);
+        JTextField emailField = new JTextField();
+        emailField.setBounds(185, 80, 200, 25);
+        gradientPanel.add(emailField);
 
         JLabel newPasswordLabel = new JLabel("New Password:");
-        newPasswordLabel.setBounds(50, 150, 210, 25);
-        newPasswordLabel.setForeground(Color.WHITE);
+        newPasswordLabel.setBounds(50, 130, 150, 25);
         newPasswordLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        newPasswordLabel.setForeground(Color.WHITE);
         gradientPanel.add(newPasswordLabel);
 
         JPasswordField newPasswordField = new JPasswordField();
-        newPasswordField.setBounds(190, 150, 200, 25);
+        newPasswordField.setBounds(185, 130, 200, 25);
         gradientPanel.add(newPasswordField);
 
         JLabel confirmPasswordLabel = new JLabel("Confirm Password:");
-        confirmPasswordLabel.setBounds(50, 200, 210, 25);
-        confirmPasswordLabel.setForeground(Color.WHITE);
+        confirmPasswordLabel.setBounds(50, 180, 150, 25);
         confirmPasswordLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        confirmPasswordLabel.setForeground(Color.WHITE);
         gradientPanel.add(confirmPasswordLabel);
 
         JPasswordField confirmPasswordField = new JPasswordField();
-        confirmPasswordField.setBounds(190, 200, 200, 25);
+        confirmPasswordField.setBounds(185, 180, 200, 25);
         gradientPanel.add(confirmPasswordField);
 
-        JButton changePasswordButton = createButton("Change My Pass", new Color(0, 153, 204), new Color(51, 204, 255));
-        changePasswordButton.setBounds(135, 250, 170, 40);
-        changePasswordButton.addActionListener(e -> {
-            String oldPassword = new String(oldPasswordField.getPassword()).trim();
+        JButton submitButton = createButton("Submit", new Color(0, 153, 204), new Color(51, 204, 255));
+        submitButton.setBounds(90, 230, 120, 40);
+        submitButton.addActionListener(e -> {
+            String email = emailField.getText().trim();
             String newPassword = new String(newPasswordField.getPassword()).trim();
             String confirmPassword = new String(confirmPasswordField.getPassword()).trim();
-        
-            if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-                AlertDesignTemplate.showErrorDialog(frame, "Error", "Isi dulu semua field yash!");
+
+            if (email.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Isi semua fieldnya dulu yaa!");
                 return;
             }
-        
+
             if (!newPassword.equals(confirmPassword)) {
-                AlertDesignTemplate.showErrorDialog(frame, "Error", "Cocokin lagi ya pass barunya");
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Password nya ga cocok nihh!");
                 return;
             }
-        
-            if (changePasswordController.changePassword(oldPassword, newPassword)) {
-                AlertDesignTemplate.showInfoDialog(frame, "Success", "Yeyyy, berhasil ngubah pass!");
+
+            ForgotPasswordController forgotPasswordController = new ForgotPasswordController();
+            if (forgotPasswordController.requestPasswordReset(email, newPassword)) {
+                AlertDesignTemplate.showInfoDialog(frame, "Success","Uda berhasil request, tunggu yaa :)");
                 frame.dispose();
-                new CustomerMenu();
+                new LoginView();
             } else {
-                AlertDesignTemplate.showErrorDialog(frame, "Error", "Yahhh, masukin pass yang bener yaa");
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "request gagal, email ndak ktemu");
             }
-        });        
-        gradientPanel.add(changePasswordButton);
+        });
+        gradientPanel.add(submitButton);
 
         JButton backButton = createButton("Back", new Color(0, 153, 204), new Color(51, 204, 255));
-        backButton.setBounds(135, 300, 170, 40);
+        backButton.setBounds(240, 230, 120, 40);
         backButton.addActionListener(e -> {
             frame.dispose();
-            new CustomerMenu();
+            new LoginView();
         });
         gradientPanel.add(backButton);
 
