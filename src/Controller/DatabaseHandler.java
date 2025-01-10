@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseHandler {
     private Connection con;
     private final String driver = "com.mysql.cj.jdbc.Driver";
-    private final String url = "jdbc:mysql://localhost/tubespbo";
+    private final String url = "jdbc:mysql://localhost/sqljopol";
     private final String username = "root";
     private final String password = "";
 
@@ -16,7 +16,6 @@ public class DatabaseHandler {
             if (con == null || con.isClosed()) {
                 Class.forName(driver);
                 con = DriverManager.getConnection(url, username, password);
-                System.out.println("Database connected successfully!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,7 +38,6 @@ public class DatabaseHandler {
         try {
             if (con != null && !con.isClosed()) {
                 con.close();
-                System.out.println("Database connection closed.");
             }
         } catch (SQLException e) {
             e.printStackTrace();

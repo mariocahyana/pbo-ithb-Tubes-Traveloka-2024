@@ -44,7 +44,7 @@ public class LoginController {
                 loggedInUser.setPassword(rs.getString("password"));
                 loggedInUser.setEmail(rs.getString("email"));
                 loggedInUser.setNoTelp(rs.getString("phone_num"));
-                loggedInUser.setBalance(rs.getString("balance"));
+                loggedInUser.setBalance(rs.getDouble("balance"));
                 loggedInUser.setStatus(StatusUser.valueOf(rs.getString("role").toUpperCase()));
                 return loggedInUser;
             }

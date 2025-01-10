@@ -16,9 +16,10 @@ public class Flight {
     private String arrivalTime;
     private FlightClass flightClass;
     private double price;
+    private String seat_row;
     public Flight(int flightID, String flightName, Airplane airplane, int countTicket, Airport origin,
             Airport destination, String airplaneName, String originCity, String destinationCity, String departureTime,
-            String arrivalTime, FlightClass flightClass, double price) {
+            String arrivalTime, FlightClass flightClass, double price, String seat_row) {
         this.flightID = flightID;
         this.flightName = flightName;
         this.airplane = airplane;
@@ -32,6 +33,7 @@ public class Flight {
         this.arrivalTime = arrivalTime;
         this.flightClass = flightClass;
         this.price = price;
+        this.seat_row = seat_row;
     }
     public int getFlightID() {
         return flightID;
@@ -112,6 +114,12 @@ public class Flight {
         this.price = price;
     }
     public Flight() {
+    }
+    public String getSeat_row() {
+        return seat_row;
+    }
+    public void setSeat_row(String seat_row) {
+        this.seat_row = seat_row;
     }
     
 }

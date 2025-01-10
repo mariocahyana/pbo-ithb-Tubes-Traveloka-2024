@@ -10,24 +10,25 @@ public class Transaksi {
     private int transaksiID;
 	private StatusPembayaran status;
     private ActiveTicket ticket;
-    private int price;
+    private double price;
     private String name;
     private User user;
     private Flight flight;
+    private String seat;
     private int nik;
     private Usia age;
     private LocalDate date_transaksi;
 
     @Override
     public String toString(){
-        return "[" + transaksiID + status + ticket + price + name + user + flight + nik + age + date_transaksi + "]";
+        return "[" + transaksiID + status + ticket + price + name + user + flight + seat + nik + age + date_transaksi + "]";
     }
     public Transaksi() {
         
     }
 
-    public Transaksi(int transaksiID, StatusPembayaran status, ActiveTicket ticket, int price, String name,
-            User user, Flight flight, int nik, Usia age, LocalDate date_transaksi) {
+    public Transaksi(int transaksiID, StatusPembayaran status, ActiveTicket ticket, double price, String name,
+            User user, Flight flight, String seat, int nik, Usia age, LocalDate date_transaksi) {
         this.transaksiID = transaksiID;
         this.status = status;
         this.ticket = ticket;
@@ -35,6 +36,7 @@ public class Transaksi {
         this.name = name;
         this.user = user;
         this.flight = flight;
+        this.seat = seat;
         this.nik = nik;
         this.age = age;
         this.date_transaksi = date_transaksi;
@@ -64,11 +66,11 @@ public class Transaksi {
         this.ticket = ticket;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -118,6 +120,12 @@ public class Transaksi {
 
     public void setDate_transaksi(LocalDate date_transaksi) {
         this.date_transaksi = date_transaksi;
+    }
+    public String getSeat() {
+        return seat;
+    }
+    public void setSeat(String seat) {
+        this.seat = seat;
     }
     
 }

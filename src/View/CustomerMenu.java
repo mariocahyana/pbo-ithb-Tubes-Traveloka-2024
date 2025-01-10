@@ -14,7 +14,6 @@ public class CustomerMenu {
 
     public void showMenu() {
         var user = LoginController.getInstance().getLoggedInUser();
-
         if (user == null) {
             JOptionPane.showMessageDialog(null, "No user is login!", "Error", JOptionPane.ERROR_MESSAGE);
             new MainMenu();
@@ -106,7 +105,7 @@ public class CustomerMenu {
         viewActiveTicketButton.setBounds(xLeft, yStart + 6 * ySelisih, buttonWidth, buttonHeight);
         viewActiveTicketButton.addActionListener(e -> {
             frame.dispose();
-            // new ChangePasswordView();
+            new ViewActiveTicket();
         });
         gradientPanel.add(viewActiveTicketButton);
 
@@ -122,7 +121,7 @@ public class CustomerMenu {
         bookTicketButton.setBounds(xRight, yStart + ySelisih, buttonWidth, buttonHeight);
         bookTicketButton.addActionListener(e -> {
             frame.dispose();
-            // new BookTicketView();
+            new ViewFlight(null);
         });
         gradientPanel.add(bookTicketButton);
 
@@ -138,7 +137,7 @@ public class CustomerMenu {
         searchFlightButton.setBounds(xRight, yStart + 3 * ySelisih, buttonWidth, buttonHeight);
         searchFlightButton.addActionListener(e -> {
             frame.dispose();
-            // new SearchFlightView();
+            new SearchFlight();
         });
         gradientPanel.add(searchFlightButton);
 
@@ -146,15 +145,15 @@ public class CustomerMenu {
         viewPurchaseHistoryButton.setBounds(xRight, yStart + 4 * ySelisih, buttonWidth, buttonHeight);
         viewPurchaseHistoryButton.addActionListener(e -> {
             frame.dispose();
-            // new ViewPurchaseHistoryView();
+            new ViewPurchaseHistory();
         });
         gradientPanel.add(viewPurchaseHistoryButton);
 
         JButton rescheduleButton = createButton("Reschedule", new Color(0, 153, 204), new Color(51, 204, 255));
         rescheduleButton.setBounds(xRight, yStart + 5 * ySelisih, buttonWidth, buttonHeight);
         rescheduleButton.addActionListener(e -> {
-            frame.dispose();
-            // new RescheduleView();
+            // frame.dispose();
+            // new
         });
         gradientPanel.add(rescheduleButton);
 

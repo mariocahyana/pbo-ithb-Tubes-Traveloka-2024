@@ -9,14 +9,13 @@ public class User implements FlightService{
     private String password;
     private String email;
     private String noTelp;
-    private String balance;
+    private double balance; // Tipe data diubah menjadi double
     private StatusUser status;
 
     public User() {
-    
     }
 
-    public User(int userID, String nama, String password, String email, String noTelp, String balance,
+    public User(int userID, String nama, String password, String email, String noTelp, double balance,
             StatusUser status) {
         this.userID = userID;
         this.nama = nama;
@@ -67,11 +66,11 @@ public class User implements FlightService{
         this.noTelp = noTelp;
     }
 
-    public String getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(String balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
