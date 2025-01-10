@@ -49,6 +49,8 @@ public class WriteReviewView {
 
         JTextArea reviewArea = new JTextArea();
         reviewArea.setBounds(50, 140, 500, 100);
+        reviewArea.setMargin(new Insets(10, 10, 10, 10));
+        reviewArea.setFont(new Font("SansSerif", Font.PLAIN, 14));
         gradientPanel.add(reviewArea);
 
         JButton submitButton = createButton("Submit", new Color(0, 153, 204), new Color(51, 204, 255));
@@ -56,14 +58,14 @@ public class WriteReviewView {
         submitButton.addActionListener(e -> {
             String review = reviewArea.getText().trim();
             if (review.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Review harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Review jangan kosong dongg");
             } else if (writeReviewController.saveReview(review)) {
-                JOptionPane.showMessageDialog(frame, "Review berhasil disimpan!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                AlertDesignTemplate.showInfoDialog(frame, "Success", "Yeyy, review udah kesimpen nihh");
                 frame.dispose();
                 new CustomerMenu();
             } else {
-                JOptionPane.showMessageDialog(frame, "Gagal menyimpan review.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Yahh, gagal nyimpen review mu");
+            }            
         });
         gradientPanel.add(submitButton);
 

@@ -75,6 +75,11 @@ public class AdminMenu {
             new AirportData(null);
         });
 
+        JButton forgotPass= createGradientButton("FORGOT PASS", 30, 310, new Color(0, 153, 204), new Color(51, 204, 255), e -> {
+            frame.dispose();
+            new AdminForgotPasswordView();
+        });
+
         JButton flightSchedule = createGradientButton("FLIGHT SCHEDULE", 310, 30, new Color(51, 204, 255), new Color(0, 153, 204), e -> {
             frame.dispose();
             new FlightData(null);
@@ -106,6 +111,7 @@ public class AdminMenu {
         gradientPanel.add(flightSchedule);
         gradientPanel.add(airplaneData);
         gradientPanel.add(airportData);
+        gradientPanel.add(forgotPass);
         gradientPanel.add(reschedule);
         gradientPanel.add(customerReview);
         gradientPanel.add(confirmTopup);
