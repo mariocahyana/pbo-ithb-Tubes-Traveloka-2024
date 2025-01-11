@@ -79,8 +79,8 @@ public class UpdateProfileView {
             String email = emailField.getText().trim();
             String phone = phoneField.getText().trim();
 
-            AlertDesignTemplate.showErrorDialog(frame, "Error", "Isi semua field nya yaa");
             if (name.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+                AlertDesignTemplate.showErrorDialog(frame, "Error", "Isi semua field nya yaa");
                 return;
             }
 
