@@ -117,7 +117,6 @@ CREATE TABLE `reply` (
   `reply_admin` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
 --
 -- Table structure for table `reschedule_request`
 --
@@ -126,13 +125,12 @@ CREATE TABLE `reschedule_request` (
   `requestID` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
   `old_transaksiID` int(11) NOT NULL,
-  `new_transaksiID` int(11) DEFAULT NULL,
+  `new_flightID` int(11) DEFAULT NULL,
   `reason` varchar(255) NOT NULL,
   `status` enum('PENDING','APPROVED','REJECTED') DEFAULT 'PENDING',
   `request_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `process_date` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 -- --------------------------------------------------------
 
 --
@@ -249,7 +247,6 @@ ALTER TABLE `reply`
   ADD PRIMARY KEY (`reviewID`,`userID`),
   ADD KEY `userID` (`userID`);
 
-
 --
 -- Indexes for table `reschedule_request`
 --
@@ -257,7 +254,7 @@ ALTER TABLE `reschedule_request`
   ADD PRIMARY KEY (`requestID`),
   ADD KEY `userID` (`userID`),
   ADD KEY `old_transaksiID` (`old_transaksiID`),
-  ADD KEY `new_transaksiID` (`new_transaksiID`);
+  ADD KEY `new_flightID` (`new_flightID`);
 
 --
 -- Indexes for table `review`
@@ -396,7 +393,7 @@ ALTER TABLE `reply`
 ALTER TABLE `reschedule_request`
   ADD CONSTRAINT `reschedule_request_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reschedule_request_ibfk_2` FOREIGN KEY (`old_transaksiID`) REFERENCES `transaksi` (`transaksiID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `reschedule_request_ibfk_3` FOREIGN KEY (`new_transaksiID`) REFERENCES `transaksi` (`transaksiID`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `reschedule_request_ibfk_3` FOREIGN KEY (`new_flightID`) REFERENCES `flight` (`flightID`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `review`

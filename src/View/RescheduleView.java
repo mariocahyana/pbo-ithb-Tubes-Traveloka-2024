@@ -24,7 +24,7 @@ public class RescheduleView {
         gradientPanel.setLayout(null);
 
         JLabel titleLabel = createStyledLabel("Request Reschedule", 24);
-        titleLabel.setBounds(0, 20, 500, 40);
+        titleLabel.setBounds(110, 20, 500, 40);
         gradientPanel.add(titleLabel);
 
         JLabel oldTransLabel = createStyledLabel("Old Transaction ID:", 14);

@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Model_class.User;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,22 +13,22 @@ public class RescheduleController {
         dbHandler.connect();
     }
 
-    public boolean requestReschedule(String oldTransaksiID, String newTransaksiID, String reason) {
+    public boolean requestReschedule(String oldTransaksiID, String newFlightID, String reason) {
         User loggedInUser = LoginController.getInstance().getLoggedInUser();
-        
+
         if (loggedInUser == null) {
             System.out.println("User belum login.");
             return false;
         }
 
-        String query = "INSERT INTO reschedule_request (userID, old_transaksiID, new_transaksiID, reason, status) VALUES (?, ?, ?, ?, 'PENDING')";
+        String query = "INSERT INTO reschedule_request (userID, old_transaksiID, new_flightID, reason, status) VALUES (?, ?, ?, ?, 'PENDING')";
 
         try (Connection con = dbHandler.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
 
             ps.setInt(1, loggedInUser.getUserID());
-            ps.setString(2, oldTransaksiID);
-            ps.setString(3, newTransaksiID);
+            ps.setInt(2, Integer.parseInt(oldTransaksiID));
+            ps.setInt(3, Integer.parseInt(newFlightID));
             ps.setString(4, reason);
 
             return ps.executeUpdate() > 0;

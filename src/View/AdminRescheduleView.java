@@ -29,7 +29,7 @@ public class AdminRescheduleView {
         gradientPanel.add(titleLabel, BorderLayout.NORTH);
 
         DefaultTableModel model = new DefaultTableModel(new String[]{
-            "Request ID", "Old Transaksi ID", "New Transaksi ID", "Reason", "Date"
+            "Request ID", "Old Transaksi ID", "New Flight ID", "Reason", "Date"
         }, 0);
         
         JTable table = new JTable(model);
