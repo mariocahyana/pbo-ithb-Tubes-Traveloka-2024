@@ -30,6 +30,26 @@ public class TopUpController {
             return false;
         }
     }
+    
+    public boolean editBalance(double amount) {
+        User user = LoginController.getInstance().getLoggedInUser();
+        if (user == null) {
+            System.out.println("Tidak ada user yang login.");
+            return false;
+        }
+    
+        String query = "UPDATE users SET balance = ? WHERE userID = ?";
+        try (Connection con = dbHandler.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setDouble(1, amount); 
+            ps.setInt(2, user.getUserID());
+            return ps.executeUpdate() > 0; 
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 
     public double getBalance() {
         User user = LoginController.getInstance().getLoggedInUser();

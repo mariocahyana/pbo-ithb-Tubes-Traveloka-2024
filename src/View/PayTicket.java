@@ -29,6 +29,7 @@ import java.util.List;
 import Controller.CustomerTransactionController;
 import Controller.FlightController;
 import Controller.LoginController;
+import Controller.TopUpController;
 import Controller.TransactionController;
 import Model.Model_class.Transaksi;
 import Model.Model_class.User;
@@ -284,6 +285,8 @@ public class PayTicket {
                     trans.setStatus(StatusPembayaran.PAYNOW);
                     tc.updateTransaction((idTrans), trans.getSeat(), "PAYNOW", "ACTIVE");
                     JOptionPane.showMessageDialog(null, "Berhasil Membayar");
+                    TopUpController toc = new TopUpController();
+                    toc.editBalance(user.getBalance()-trans.getPrice());
                     new CustomerMenu();
                 });
                 gradientPanel.add(payButton);

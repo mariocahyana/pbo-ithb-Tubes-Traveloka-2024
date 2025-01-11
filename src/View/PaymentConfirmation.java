@@ -2,6 +2,7 @@ package View;
 
 import Controller.FlightController;
 import Controller.LoginController;
+import Controller.TopUpController;
 import Controller.TransactionController;
 import Model.Model_class.Transaksi;
 import Model.Model_enum.ActiveTicket;
@@ -293,6 +294,9 @@ public class PaymentConfirmation {
                 String updatedRow = seatRow.substring(0, Integer.parseInt(transaksi.getSeat())) + 1 + seatRow.substring(Integer.parseInt(transaksi.getSeat()) + 1);
                 System.out.println(updatedRow);
                 fc.updateSeatRow(transaksi.getFlight().getFlightID(), updatedRow, (fc.getActiveTicket(transaksi.getFlight().getFlightID())));
+                TopUpController toc = new TopUpController();
+                toc.editBalance(user.getBalance()-transaksi.getPrice());
+            
             });
             gradientPanel.add(payButton);
 
