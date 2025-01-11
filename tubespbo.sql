@@ -282,8 +282,8 @@ ALTER TABLE `transaksi`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`userID`),
-  ADD UNIQUE KEY `unique_email` (`email`),
-  ADD UNIQUE KEY `unique_phone_num` (`phone_num`);
+  ADD UNIQUE KEY `unique_users_email` (`email`),
+  ADD UNIQUE KEY `unique_users_phone_num` (`phone_num`);
 
 --
 -- AUTO_INCREMENT for dumped tables

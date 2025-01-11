@@ -22,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
 import Controller.CustomerTransactionController;
 import Controller.LoginController;
 import Model.Model_class.Transaksi;
-import Model.Model_class.User;
 
 public class ViewActiveTicket {
     private JFrame frame;
@@ -100,7 +99,7 @@ public class ViewActiveTicket {
 
         String[] columnNames = {
                 "Transaksi ID", "User ID", "Price", "Flight ID", "NIK", "Name", "Date Transaksi", "Age",
-                "Payment Confirmation", "Active Ticket", "EDIT"
+                "Payment Confirmation", "Active Ticket"
         };
 
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
@@ -109,9 +108,9 @@ public class ViewActiveTicket {
         for (Transaksi transactions : transaksi) {
             model.addRow(new Object[] {
                     transactions.getTransaksiID(),
-                    transactions.getUser(),
+                    transactions.getUser().getUserID(),
                     transactions.getPrice(),
-                    transactions.getFlight(),
+                    transactions.getFlight().getFlightID(),
                     transactions.getNik(),
                     transactions.getName(),
                     transactions.getDate_transaksi(),

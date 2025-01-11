@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import Model.Model_class.Flight;
 import Model.Model_class.Transaksi;
 import Model.Model_class.User;
 import Model.Model_enum.ActiveTicket;
@@ -30,6 +31,8 @@ public class CustomerTransactionController {
             while (rs.next()) {
                 Transaksi transaksi = new Transaksi();
                 User user = new User();
+                Flight flight = new Flight();
+                flight.setFlightID(rs.getInt("flightID"));
                 user.setUserID(rs.getInt("userID"));
                 transaksi.setTransaksiID(rs.getInt("transaksiID"));
                 transaksi.setStatus(StatusPembayaran.valueOf(rs.getString("payment_confirmation")));
@@ -37,6 +40,7 @@ public class CustomerTransactionController {
                 transaksi.setPrice(rs.getInt("price_transaction"));
                 transaksi.setName(rs.getString("name"));
                 transaksi.setUser(user);
+                transaksi.setFlight(flight);
                 transaksi.setNik(rs.getInt("nik"));
                 transaksi.setAge(Usia.valueOf(rs.getString("age")));
                 transaksi.setDate_transaksi(rs.getDate("date_transaksi").toLocalDate());
@@ -63,6 +67,8 @@ public class CustomerTransactionController {
             while (rs.next()) {
                 Transaksi transaksi = new Transaksi();
                 User user = new User();
+                Flight flight = new Flight();
+                flight.setFlightID(rs.getInt("flightID"));
                 user.setUserID(rs.getInt("userID"));
                 transaksi.setTransaksiID(rs.getInt("transaksiID"));
                 transaksi.setStatus(StatusPembayaran.valueOf(rs.getString("payment_confirmation")));
@@ -70,6 +76,7 @@ public class CustomerTransactionController {
                 transaksi.setPrice(rs.getInt("price_transaction"));
                 transaksi.setName(rs.getString("name"));
                 transaksi.setUser(user);
+                transaksi.setFlight(flight);
                 transaksi.setNik(rs.getInt("nik"));
                 transaksi.setAge(Usia.valueOf(rs.getString("age")));
                 transaksi.setDate_transaksi(rs.getDate("date_transaksi").toLocalDate());
@@ -97,6 +104,8 @@ public class CustomerTransactionController {
             while (rs.next()) {
                 Transaksi transaksi = new Transaksi();
                 User user = new User();
+                Flight flight = new Flight();
+                flight.setFlightID(rs.getInt("flightID"));
                 user.setUserID(rs.getInt("userID"));
                 transaksi.setTransaksiID(rs.getInt("transaksiID"));
                 transaksi.setStatus(StatusPembayaran.valueOf(rs.getString("payment_confirmation")));
@@ -104,6 +113,7 @@ public class CustomerTransactionController {
                 transaksi.setPrice(rs.getInt("price_transaction"));
                 transaksi.setName(rs.getString("name"));
                 transaksi.setUser(user);
+                transaksi.setFlight(flight);
                 transaksi.setNik(rs.getInt("nik"));
                 transaksi.setAge(Usia.valueOf(rs.getString("age")));
                 transaksi.setDate_transaksi(rs.getDate("date_transaksi").toLocalDate());
@@ -128,6 +138,8 @@ public class CustomerTransactionController {
             while (rs.next()) {
                 Transaksi transaksi = new Transaksi();
                 User user = new User();
+                Flight flight = new Flight();
+                flight.setFlightID(rs.getInt("flightID"));
                 user.setUserID(rs.getInt("userID"));
                 transaksi.setTransaksiID(rs.getInt("transaksiID"));
                 transaksi.setStatus(StatusPembayaran.valueOf(rs.getString("payment_confirmation")));
@@ -135,6 +147,7 @@ public class CustomerTransactionController {
                 transaksi.setPrice(rs.getInt("price_transaction"));
                 transaksi.setName(rs.getString("name"));
                 transaksi.setUser(user);
+                transaksi.setFlight(flight);
                 transaksi.setNik(rs.getInt("nik"));
                 transaksi.setAge(Usia.valueOf(rs.getString("age")));
                 transaksi.setDate_transaksi(rs.getDate("date_transaksi").toLocalDate());

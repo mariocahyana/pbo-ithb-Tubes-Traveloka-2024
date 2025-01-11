@@ -81,7 +81,7 @@ public class CustomerTransaction {
 
         String[] columnNames = {
                 "Transaksi ID", "User ID", "Price", "Flight ID", "NIK", "Name", "Date Transaksi", "Age",
-                "Payment Confirmation", "Active Ticket", "EDIT"
+                "Payment Confirmation", "Active Ticket"
         };
 
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
@@ -90,9 +90,9 @@ public class CustomerTransaction {
         for (Transaksi transactions : transaksi) {
             model.addRow(new Object[] {
                     transactions.getTransaksiID(),
-                    transactions.getUser(),
+                    transactions.getUser().getUserID(),
                     transactions.getPrice(),
-                    transactions.getFlight(),
+                    transactions.getFlight().getFlightID(),
                     transactions.getNik(),
                     transactions.getName(),
                     transactions.getDate_transaksi(),

@@ -1,18 +1,13 @@
 package View;
 
 import Controller.LoginController;
-import Controller.RegisterController;
 import Controller.TransactionController;
-import Controller.LoginController;
 import Model.Model_class.Airplane;
 import Model.Model_class.Flight;
-import Model.Model_class.User;
 import Model.Model_class.Transaksi;
-import Model.Model_enum.StatusUser;
 
 
 import Model.Model_enum.Usia;
-import Model.Model_enum.StatusPembayaran;
 
 import javax.swing.*;
 import java.awt.*;

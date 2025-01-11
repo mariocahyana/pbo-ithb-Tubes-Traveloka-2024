@@ -59,7 +59,7 @@ public class PaymentConfirmation {
 
 
         JLabel detailLabel = new JLabel(detail());
-        detailLabel.setBounds(xLeft, 80, buttonWidth, 150);
+        detailLabel.setBounds(xLeft, 78, buttonWidth, 150);
         detailLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
         detailLabel.setForeground(Color.WHITE);
         gradientPanel.add(detailLabel);
@@ -83,6 +83,7 @@ public class PaymentConfirmation {
         viewReviewsButton.addActionListener(e -> {
             frame.dispose();
             payLater();
+            
         });
         gradientPanel.add(viewReviewsButton);
 
@@ -209,6 +210,7 @@ public class PaymentConfirmation {
             payButton.setBounds(xLeft+90, 280, 150, 40);
             payButton.addActionListener(e -> {
                 frame.dispose();
+                new CustomerMenu();
                 
             });
             gradientPanel.add(payButton);
@@ -250,6 +252,7 @@ public class PaymentConfirmation {
             JOptionPane.showMessageDialog(null, "Maaf Saldo kamu belum cukup, silakan melakukan Top Up Balance",
                     "Error", JOptionPane.ERROR_MESSAGE);
             frame.setVisible(false);
+            new CustomerMenu();
         } else {
 
             JLabel welcomeLabel = new JLabel("Payment Confirmation - Pay Now");
@@ -266,9 +269,9 @@ public class PaymentConfirmation {
             line.setHorizontalAlignment(SwingConstants.CENTER);
             gradientPanel.add(line);
 
-            String pesan = "<html>Saldo Kamu: "+user.getBalance() +"<br>" +
-                    "Harga Tiket"+transaksi.getPrice() +"<br>"  +
-                    "Sisa Saldo"+(user.getBalance()-transaksi.getPrice()) +"<br>"  +
+            String pesan = "<html>Saldo Kamu : "+user.getBalance() +"<br>" +
+                    "Harga Tiket : "+transaksi.getPrice() +"<br>"  +
+                    "Sisa Saldo : "+(user.getBalance()-transaksi.getPrice()) +"<br>"  +
                     "Apakah Kamu Yakin?</html>";
 
             JLabel messageLabel = new JLabel(pesan);
@@ -291,12 +294,12 @@ public class PaymentConfirmation {
                 FlightController fc = new FlightController();
                 String seatRow = fc.getSeatRow(transaksi.getFlight().getFlightID());
                 System.out.println(seatRow);
-                String updatedRow = seatRow.substring(0, Integer.parseInt(transaksi.getSeat())) + 1 + seatRow.substring(Integer.parseInt(transaksi.getSeat()) + 1);
-                System.out.println(updatedRow);
+                int seatIndex = Integer.parseInt(transaksi.getSeat()) - 1; 
+                String updatedRow = seatRow.substring(0, seatIndex) + "1" + seatRow.substring(seatIndex + 1);                System.out.println(updatedRow);
                 fc.updateSeatRow(transaksi.getFlight().getFlightID(), updatedRow, (fc.getActiveTicket(transaksi.getFlight().getFlightID())));
                 TopUpController toc = new TopUpController();
                 toc.editBalance(user.getBalance()-transaksi.getPrice());
-            
+                new CustomerMenu();
             });
             gradientPanel.add(payButton);
 

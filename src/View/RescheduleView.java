@@ -68,6 +68,7 @@ public class RescheduleView {
             if (rescheduleController.requestReschedule(oldTrans, newTrans, reason)) {
                 JOptionPane.showMessageDialog(frame, "Reschedule request submitted.");
                 frame.dispose();
+                new CustomerMenu();
             } else {
                 JOptionPane.showMessageDialog(frame, "Failed to submit request.");
             }

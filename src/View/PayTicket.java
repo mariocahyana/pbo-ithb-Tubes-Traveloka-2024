@@ -27,12 +27,10 @@ import javax.swing.BorderFactory;
 import java.util.List;
 
 import Controller.CustomerTransactionController;
-import Controller.FlightController;
 import Controller.LoginController;
 import Controller.TopUpController;
 import Controller.TransactionController;
 import Model.Model_class.Transaksi;
-import Model.Model_class.User;
 import Model.Model_enum.ActiveTicket;
 import Model.Model_enum.StatusPembayaran;
 
@@ -130,7 +128,7 @@ public class PayTicket {
 
         String[] columnNames = {
                 "Transaksi ID", "User ID", "Price", "Flight ID", "NIK", "Name", "Date Transaksi", "Age",
-                "Payment Confirmation", "Active Ticket", "EDIT"
+                "Payment Confirmation", "Active Ticket", "PAY"
         };
 
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
@@ -140,9 +138,9 @@ public class PayTicket {
             if (transactions.getStatus() == StatusPembayaran.PAYLATER) {
                 model.addRow(new Object[] {
                     transactions.getTransaksiID(),
-                    transactions.getUser(),
+                    transactions.getUser().getUserID(),
                     transactions.getPrice(),
-                    transactions.getFlight(),
+                    transactions.getFlight().getFlightID(),
                     transactions.getNik(),
                     transactions.getName(),
                     transactions.getDate_transaksi(),
@@ -185,7 +183,7 @@ public class PayTicket {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                 int row, int column) {
-            setText(value != null ? value.toString() : "EDIT");
+            setText(value != null ? value.toString() : "PAY");
             return this;
         }
     }
@@ -202,10 +200,10 @@ public class PayTicket {
             button.addActionListener(e -> {
                 int row = table.getSelectedRow();
                 String transaksiID = table.getValueAt(row, 0).toString();
-                JOptionPane.showMessageDialog(null, "Editing Transaksi ID: " + transaksiID);
-                TransactionController tc = new TransactionController();
+                                TransactionController tc = new TransactionController();
                 trans = tc.getTransactionByID(Integer.parseInt(transaksiID));
                 clicked = true;
+                frame.dispose();
                 payNow(Integer.parseInt(transaksiID));
                 fireEditingStopped();
             });
@@ -305,7 +303,7 @@ public class PayTicket {
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
                 int column) {
-            label = value != null ? value.toString() : "EDIT";
+            label = value != null ? value.toString() : "PAY";
             button.setText(label);
             clicked = false;
             return button;

@@ -87,7 +87,7 @@ public class FlightController {
 
                     origin.setAirportID(rs.getInt("origin"));
                     destination.setAirportID(rs.getInt("destination"));
-
+                    flight.setFlightID(rs.getInt("flightID"));
                     flight.setFlightName(rs.getString("flight_name"));
                     flight.setAirplane(airplane);
                     flight.setAirplaneName(rs.getString("airplane_name"));
@@ -268,30 +268,6 @@ public class FlightController {
             e.printStackTrace();
             return false;
         }
-    }
-
-    private int getAirportID(Connection conn, String query, String city) throws SQLException {
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, city);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("airportID");
-                }
-            }
-        }
-        return -1;
-    }
-
-    private int getAirplaneID(Connection conn, String query, String airplaneName) throws SQLException {
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, airplaneName);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("airplaneID");
-                }
-            }
-        }
-        return -1;
     }
 
     public String getSeatRow(int flightID) {

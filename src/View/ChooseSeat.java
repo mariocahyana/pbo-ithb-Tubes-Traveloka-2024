@@ -86,8 +86,36 @@ public class ChooseSeat {
         scrollPane.getViewport().setOpaque(false);
         gradientPanel.add(scrollPane, BorderLayout.CENTER);
 
+        JButton backButton = createButton("Back");
+        backButton.setBounds(308, 290, 70, 50);
+        backButton.addActionListener(e -> {
+            frame.setVisible(false);
+            new CustomerMenu();
+        });
+        frame.add(backButton);
+        
+
         frame.add(gradientPanel);
         frame.setVisible(true);
+    }
+
+    private JButton createButton(String text) {
+        JButton button = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g;
+                GradientPaint gp = new GradientPaint(0, 0, new Color(0, 153, 204), 0, getHeight(), new Color(51, 204, 255));
+                g2d.setPaint(gp);
+                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);
+                super.paintComponent(g);
+            }
+        };
+        button.setForeground(Color.WHITE);
+        button.setFont(new Font("SansSerif", Font.BOLD, 14));
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setContentAreaFilled(false);
+        return button;
     }
 
     private JButton createSeatButton(String text, boolean isAvailable) {

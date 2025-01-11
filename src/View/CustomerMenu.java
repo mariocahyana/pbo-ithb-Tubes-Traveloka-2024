@@ -103,21 +103,14 @@ public class CustomerMenu {
         gradientPanel.add(changePasswordButton);
 
         JButton viewActiveTicketButton = createButton("View Active Ticket", new Color(0, 153, 204), new Color(51, 204, 255));
-        viewActiveTicketButton.setBounds(xLeft, yStart + 6 * ySelisih, buttonWidth, buttonHeight);
+        viewActiveTicketButton.setBounds(xRight, yStart, buttonWidth, buttonHeight);
         viewActiveTicketButton.addActionListener(e -> {
             frame.dispose();
             new ViewActiveTicket();
         });
         gradientPanel.add(viewActiveTicketButton);
 
-        JButton confirmPaymentButton = createButton("Confirm Payment", new Color(0, 153, 204), new Color(51, 204, 255));
-        confirmPaymentButton.setBounds(xRight, yStart, buttonWidth, buttonHeight);
-        confirmPaymentButton.addActionListener(e -> {
-            frame.dispose();
-            // new ConfirmPaymentView();
-        });
-        gradientPanel.add(confirmPaymentButton);
-
+ 
         JButton bookTicketButton = createButton("Book Ticket", new Color(0, 153, 204), new Color(51, 204, 255));
         bookTicketButton.setBounds(xRight, yStart + ySelisih, buttonWidth, buttonHeight);
         bookTicketButton.addActionListener(e -> {
@@ -159,7 +152,7 @@ public class CustomerMenu {
         gradientPanel.add(rescheduleButton);
 
         JButton logoutButton = createButton("Logout", new Color(0, 153, 204), new Color(51, 204, 255));
-        logoutButton.setBounds(xRight, yStart + 6 * ySelisih, buttonWidth, buttonHeight);
+        logoutButton.setBounds(xRight - 140, yStart + 6 * ySelisih, buttonWidth, buttonHeight);
         logoutButton.addActionListener(e -> {
             LoginController.getInstance().logout();
             frame.dispose();

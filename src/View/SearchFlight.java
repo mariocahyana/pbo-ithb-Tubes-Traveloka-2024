@@ -3,18 +3,13 @@ package View;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import Controller.FlightController;
 
-import javax.swing.*;
 import java.awt.*;
 
-import Model.Model_class.User;
-import Model.Model_enum.StatusUser;
 
 public class SearchFlight {
     public SearchFlight(){
