@@ -116,4 +116,35 @@ public class CustomerTransactionController {
 
     return transactions;
 }
+
+    public List<Transaksi> getTransactionsPayLater() {
+        List<Transaksi> transactions = new ArrayList<>();
+        String query = "SELECT * FROM transaksi WHERE payment_confirmation = 'PAYLATER'"; 
+        
+       try (Connection conn = dbHandler.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Transaksi transaksi = new Transaksi();
+                User user = new User();
+                user.setUserID(rs.getInt("userID"));
+                transaksi.setTransaksiID(rs.getInt("transaksiID"));
+                transaksi.setStatus(StatusPembayaran.valueOf(rs.getString("payment_confirmation")));
+                transaksi.setTicket(ActiveTicket.valueOf(rs.getString("active_ticket")));
+                transaksi.setPrice(rs.getInt("price_transaction"));
+                transaksi.setName(rs.getString("name"));
+                transaksi.setUser(user);
+                transaksi.setNik(rs.getInt("nik"));
+                transaksi.setAge(Usia.valueOf(rs.getString("age")));
+                transaksi.setDate_transaksi(rs.getDate("date_transaksi").toLocalDate());
+                transactions.add(transaksi);
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return transactions;
+}
 }

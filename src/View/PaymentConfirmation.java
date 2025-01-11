@@ -3,10 +3,7 @@ package View;
 import Controller.FlightController;
 import Controller.LoginController;
 import Controller.TransactionController;
-import Model.Model_class.Airplane;
-import Model.Model_class.Flight;
 import Model.Model_class.Transaksi;
-import Model.Model_class.User;
 import Model.Model_enum.ActiveTicket;
 import Model.Model_enum.StatusPembayaran;
 
@@ -17,10 +14,7 @@ import java.awt.*;
 
 public class PaymentConfirmation {
     private JFrame frame;
-    private Flight flight;
-    private Airplane airplane;
     private Transaksi transaksi;
-    private String seat;
 
     PaymentConfirmation(Transaksi transaksii) {
         transaksi = transaksii;

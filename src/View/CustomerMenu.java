@@ -126,13 +126,13 @@ public class CustomerMenu {
         });
         gradientPanel.add(bookTicketButton);
 
-        JButton chooseSeatButton = createButton("Choose Seat", new Color(0, 153, 204), new Color(51, 204, 255));
-        chooseSeatButton.setBounds(xRight, yStart + 2 * ySelisih, buttonWidth, buttonHeight);
-        chooseSeatButton.addActionListener(e -> {
+        JButton payNowButton = createButton("Pay Ticket", new Color(0, 153, 204), new Color(51, 204, 255));
+        payNowButton.setBounds(xRight, yStart + 2 * ySelisih, buttonWidth, buttonHeight);
+        payNowButton.addActionListener(e -> {
             frame.dispose();
-            // new ChooseSeatView();
+            new PayTicket();
         });
-        gradientPanel.add(chooseSeatButton);
+        gradientPanel.add(payNowButton);
 
         JButton searchFlightButton = createButton("Search Flight", new Color(0, 153, 204), new Color(51, 204, 255));
         searchFlightButton.setBounds(xRight, yStart + 3 * ySelisih, buttonWidth, buttonHeight);
